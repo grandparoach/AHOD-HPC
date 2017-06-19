@@ -144,14 +144,14 @@
 			"publisher": "OpenLogic",
 			"offer": "CentOS-HPC",
 			"sku": "7.1",
-			"version": "latest"
+			"version": "7.1.20160408"
 		},
 		"imageReference": "[variables('osType')]",
 		"JBoxType": {
 			"publisher": "OpenLogic",
 			"offer": "CentOS",
 			"sku": "7.1",
-			"version": "latest"
+			"version": "7.1.20160308"
 		},
 		"JBimageReference": "[variables('JBoxType')]",
 		"vmScripts": {
