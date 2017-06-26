@@ -245,7 +245,7 @@
 				"adminPassword": "[parameters('adminPassword')]"
 			},
 			"storageProfile": {
-				"imageReference": "[variables('imageReference')]",
+				"imageReference": "[variables('JBimageReference')]",
 				"osDisk": {
 					"name": "[variables('jumpBoxOSDiskName')]",
 					"vhd": {
