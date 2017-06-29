@@ -154,7 +154,7 @@
 			],
 			"commandToExecute": ""
 		},
-		"computeApiVersion": "2016-03-30",
+		"computeApiVersion": "2017-03-30",
 		"networkApiVersion": "2016-03-30",
 		"storageApiVersion": "2015-06-15"
 	},
@@ -247,11 +247,10 @@
 			"storageProfile": {
 				"imageReference": "[variables('JBimageReference')]",
 				"osDisk": {
-					"name": "[variables('jumpBoxOSDiskName')]",
-					"vhd": {
-						"uri": "[concat('http://',variables('jumpBoxSAName'),'.blob.core.windows.net/',variables('jumpBoxVHDContainerName'),'/',variables('jumpBoxOSDiskName'),'.vhd')]"
+					"name": "['jumpboxvmdisk']", 
+					"managedDisk": {
+						"storageAccountType": "Standard_LRS"
 					},
-					"caching": "ReadWrite",
 					"createOption": "FromImage"
 				}
 			},
@@ -310,6 +309,7 @@
 			"upgradePolicy": {
 				"mode": "Manual"
 			},
+			"singlePlacementGroup": false,
 			"virtualMachineProfile": {
 				"storageProfile": {
 					"osDisk": {
