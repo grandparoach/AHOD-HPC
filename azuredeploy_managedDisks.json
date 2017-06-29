@@ -314,7 +314,6 @@
 				"storageProfile": {
 					"imageReference": "[variables('imageReference')]",
 					"osDisk": {
-						"name": "['vmssdisk']", 
 						"managedDisk": {
 							"storageAccountType": "Standard_LRS"
 						},
