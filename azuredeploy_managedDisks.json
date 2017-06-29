@@ -312,19 +312,14 @@
 			"singlePlacementGroup": false,
 			"virtualMachineProfile": {
 				"storageProfile": {
+					"imageReference": "[variables('imageReference')]",
 					"osDisk": {
-						"vhdContainers": [
-							"[concat('https://', variables('uniqueStringArray')[0], variables('newStorageAccountSuffix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
-							"[concat('https://', variables('uniqueStringArray')[1], variables('newStorageAccountSuffix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
-							"[concat('https://', variables('uniqueStringArray')[2], variables('newStorageAccountSuffix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
-							"[concat('https://', variables('uniqueStringArray')[3], variables('newStorageAccountSuffix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
-							"[concat('https://', variables('uniqueStringArray')[4], variables('newStorageAccountSuffix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"
-						],
-						"name": "[variables('osDiskName')]",
-						"caching": "ReadOnly",
+						"name": "['vmssdisk']", 
+						"managedDisk": {
+							"storageAccountType": "Standard_LRS"
+						},
 						"createOption": "FromImage"
-					},
-					"imageReference": "[variables('imageReference')]"
+					}
 				},
 				"osProfile": {
 					"computerNamePrefix": "[variables('namingInfix')]",
