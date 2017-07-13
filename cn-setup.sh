@@ -31,6 +31,7 @@ if [ $FLAG = NOTMOUNTED ] ; then
     
     echo export FLUENT_HOSTNAME=$HOST >> /home/$USER/.bashrc
     echo export INTELMPI_ROOT=/opt/intel/impi/5.1.3.181 >> /home/$USER/.bashrc
+    echo export INTELMPI_ROOT=/opt/intel/impi/2017.2.174 >> /home/$USER/.bashrc
     echo export I_MPI_FABRICS=shm:dapl >> /home/$USER/.bashrc
     echo export I_MPI_DAPL_PROVIDER=ofa-v2-ib0 >> /home/$USER/.bashrc
     echo export I_MPI_ROOT=/opt/intel/compilers_and_libraries_2016.2.181/linux/mpi >> /home/$USER/.bashrc
@@ -41,6 +42,10 @@ if [ $FLAG = NOTMOUNTED ] ; then
 
     ln -s /opt/intel/impi/5.1.3.181/intel64/bin/ /opt/intel/impi/5.1.3.181/bin
     ln -s /opt/intel/impi/5.1.3.181/lib64/ /opt/intel/impi/5.1.3.181/lib
+
+    ln -s /opt/intel/impi/2017.2.174/intel64/bin/ /opt/intel/impi/2017.2.174/bin
+    ln -s /opt/intel/impi/2017.2.174/lib64/ /opt/intel/impi/2017.2.174/lib
+    
     #chown -R $USER:$USER /mnt/resource/
 
     wget -q https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/full-pingpong.sh -O /home/$USER/full-pingpong.sh
