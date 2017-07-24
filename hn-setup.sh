@@ -14,8 +14,10 @@ echo Pass is: $PASS
 echo License IP is: $LICIP
 echo Model is: $DOWN
 
-echo "*               hard    memlock         unlimited" >> /etc/security/limits.conf
-echo "*               soft    memlock         unlimited" >> /etc/security/limits.conf
+cat << EOF >> /etc/security/limits.conf
+*               hard    memlock         unlimited
+*               soft    memlock         unlimited
+EOF
 
 mkdir -p /home/$USER/.ssh
 mkdir -p /home/$USER/bin
@@ -39,7 +41,7 @@ ln -s /opt/intel/impi/2017.2.174/lib64/ /opt/intel/impi/2017.2.174/lib
 
 #rpm -ivh epel-release-7-9.noarch.rpm
 yum install -y -q epel-release
-yum install -y -q nfs-utils sshpass nmap htop npm pdsh
+yum install -y -q nfs-utils nmap htop pdsh screen git psmisc
 yum groupinstall -y "X Window System"
 npm install -g azure-cli
 
