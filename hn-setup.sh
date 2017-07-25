@@ -38,7 +38,7 @@ ln -s /opt/intel/impi/${impi_version}/intel64/bin/ /opt/intel/impi/${impi_versio
 ln -s /opt/intel/impi/${impi_version}/lib64/ /opt/intel/impi/${impi_version}/lib
 
 yum install -y -q epel-release
-yum install -y -q nfs-utils nmap htop pdsh screen git psmisc
+yum install -y -q nfs-utils sshpass nmap htop pdsh screen git psmisc
 yum groupinstall -y "X Window System"
 npm install -g azure-cli
 
