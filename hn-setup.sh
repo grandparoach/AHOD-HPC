@@ -31,15 +31,12 @@ mkdir /mnt/resource/scratch/benchmark
 
 
 
-ln -s /opt/intel/impi/5.1.3.181/intel64/bin/ /opt/intel/impi/5.1.3.181/bin
-ln -s /opt/intel/impi/5.1.3.181/lib64/ /opt/intel/impi/5.1.3.181/lib
+impi_version=`ls /opt/intel/impi`
+source /opt/intel/impi/${impi_version}/bin64/mpivars.sh
 
-ln -s /opt/intel/impi/2017.2.174/intel64/bin/ /opt/intel/impi/2017.2.174/bin
-ln -s /opt/intel/impi/2017.2.174/lib64/ /opt/intel/impi/2017.2.174/lib
+ln -s /opt/intel/impi/${impi_version}/intel64/bin/ /opt/intel/impi/${impi_version}/bin
+ln -s /opt/intel/impi/${impi_version}/lib64/ /opt/intel/impi/${impi_version}/lib
 
-#wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
-
-#rpm -ivh epel-release-7-9.noarch.rpm
 yum install -y -q epel-release
 yum install -y -q nfs-utils nmap htop pdsh screen git psmisc
 yum groupinstall -y "X Window System"
