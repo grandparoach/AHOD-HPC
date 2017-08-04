@@ -28,6 +28,11 @@ if [ $FLAG = NOTMOUNTED ] ; then
     echo "$IPPRE:/mnt/resource/scratch    /mnt/resource/scratch   nfs defaults 0 0" | tee -a /etc/fstab
     mount -a
     df | grep $IPPRE
+
+    source /opt/intel/impi/${impi_version}/bin64/mpivars.sh
+
+    ln -s /opt/intel/impi/${impi_version}/intel64/bin/ /opt/intel/impi/${impi_version}/bin
+    ln -s /opt/intel/impi/${impi_version}/lib64/ /opt/intel/impi/${impi_version}/lib
     
     echo export FLUENT_HOSTNAME=$HOST >> /home/$USER/.bashrc
     echo export INTELMPI_ROOT=/opt/intel/impi/5.1.3.181 >> /home/$USER/.bashrc
@@ -35,16 +40,10 @@ if [ $FLAG = NOTMOUNTED ] ; then
     echo export I_MPI_FABRICS=shm:dapl >> /home/$USER/.bashrc
     echo export I_MPI_DAPL_PROVIDER=ofa-v2-ib0 >> /home/$USER/.bashrc
     echo export I_MPI_ROOT=/opt/intel/compilers_and_libraries_2016.2.181/linux/mpi >> /home/$USER/.bashrc
-    echo export PATH=/opt/intel/impi/5.1.3.181/bin64:$PATH >> /home/$USER/.bashrc
+    echo export PATH=/opt/intel/impi/${impi_version}/bin64:$PATH >> /home/$USER/.bashrc
     echo export I_MPI_DYNAMIC_CONNECTION=0 >> /home/$USER/.bashrc
     echo export I_MPI_PIN_PROCESSOR=8 >> /home/$USER/.bashrc
     echo export I_MPI_DAPL_TRANSLATION_CACHE=0 >> /home/$USER/.bashrc
-
-    ln -s /opt/intel/impi/5.1.3.181/intel64/bin/ /opt/intel/impi/5.1.3.181/bin
-    ln -s /opt/intel/impi/5.1.3.181/lib64/ /opt/intel/impi/5.1.3.181/lib
-
-    ln -s /opt/intel/impi/2017.2.174/intel64/bin/ /opt/intel/impi/2017.2.174/bin
-    ln -s /opt/intel/impi/2017.2.174/lib64/ /opt/intel/impi/2017.2.174/lib
     
     #chown -R $USER:$USER /mnt/resource/
 
