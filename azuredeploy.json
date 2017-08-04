@@ -135,7 +135,7 @@
 			"publisher": "OpenLogic",
 			"offer": "CentOS-HPC",
 			"sku": "7.1",
-			"version": "latest"
+			"version": "20160408"
 		},
 		"imageReference": "[variables('osType')]",
 		"JBoxType": {

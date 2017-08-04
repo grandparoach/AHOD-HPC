@@ -28,9 +28,8 @@ if [ $FLAG = NOTMOUNTED ] ; then
     echo "$IPPRE:/mnt/resource/scratch    /mnt/resource/scratch   nfs defaults 0 0" | tee -a /etc/fstab
     mount -a
     df | grep $IPPRE
-
+    impi_version=`ls /opt/intel/impi`
     source /opt/intel/impi/${impi_version}/bin64/mpivars.sh
-
     ln -s /opt/intel/impi/${impi_version}/intel64/bin/ /opt/intel/impi/${impi_version}/bin
     ln -s /opt/intel/impi/${impi_version}/lib64/ /opt/intel/impi/${impi_version}/lib
     
