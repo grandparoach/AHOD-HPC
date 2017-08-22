@@ -44,6 +44,7 @@ if [ $FLAG = NOTMOUNTED ] ; then
     echo #export I_MPI_DAPL_TRANSLATION_CACHE=0 only un comment if you are having application stability issues >> /home/$USER/.bashrc
     
     #chown -R $USER:$USER /mnt/resource/
+    
 
     wget -q https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/full-pingpong.sh -O /home/$USER/full-pingpong.sh
     wget -q https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/install_ganglia.sh -O /home/$USER/install_ganglia.sh
