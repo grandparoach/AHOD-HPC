@@ -41,7 +41,7 @@ if [ $FLAG = NOTMOUNTED ] ; then
     echo export PATH=/opt/intel/impi/${impi_version}/bin64:$PATH >> /home/$USER/.bashrc
     echo export I_MPI_DYNAMIC_CONNECTION=0 >> /home/$USER/.bashrc
     echo export I_MPI_PIN_PROCESSOR=8 >> /home/$USER/.bashrc
-    echo /#export I_MPI_DAPL_TRANSLATION_CACHE=0 only un comment if you are having application stability issues >> /home/$USER/.bashrc
+    echo #export I_MPI_DAPL_TRANSLATION_CACHE=0 only un comment if you are having application stability issues >> /home/$USER/.bashrc
     
     #chown -R $USER:$USER /mnt/resource/
 
