@@ -44,7 +44,6 @@ chmod +x install_ganglia.sh
 
 #Setup the NFS server
 echo "/mnt/resource/scratch $localip.*(rw,sync,no_root_squash,no_all_squash)" | tee -a /etc/exports
-chmod -R 777 /mnt/nfsshare/
 systemctl enable rpcbind
 systemctl enable nfs-server
 systemctl enable nfs-lock
@@ -85,15 +84,14 @@ for name in `cat /home/$USER/bin/hostips`; do\
         sshpass -p "$PASS" ssh $USER@$name "chmod 700 .ssh; chmod 640 .ssh/authorized_keys; chmod 400 .ssh/config; chmod 400 .ssh/id_rsa" && \
         cat /home/$USER/bin/hostips | ssh $USER@$name "cat >> /home/$USER/hostips" && \
         cat /home/$USER/bin/hosts | ssh $USER@$name "cat >> /home/$USER/hosts" ; \
+        echo $myhost, $localip | ssh $USER@$name "cat >> /home/$USER/jumpbox"
 done
 
-cp ~/.ssh/authorized_keys /home/$USER/.ssh/authorized_keys
 cp /home/$USER/bin/hosts /mnt/resource/scratch/hosts
 chown -R $USER:$USER /home/$USER/.ssh/
 chown -R $USER:$USER /home/$USER/bin/
 chown -R $USER:$USER /mnt/resource/scratch/
 chmod -R 744 /mnt/resource/scratch/
-
 
 # Don't require password for HPC user sudo
 echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
