@@ -80,28 +80,20 @@ echo 'StrictHostKeyChecking no' >> ~/.ssh/config
 chmod 400 ~/.ssh/config
 
 for NAME in `cat /home/$USER/bin/hostips`; do sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'hostname' >> /home/$USER/bin/hosts;done
-
 NAMES=`cat /home/$USER/bin/hostips` #names from names.txt file
-for NAME in $NAMES; do
-        sshpass -p $PASS scp -o "StrictHostKeyChecking no" -o ConnectTimeout=2 /home/$USER/bin/cn-setup.sh $USER@$NAME:/home/$USER/
-        sshpass -p $PASS scp -o "StrictHostKeyChecking no" -o ConnectTimeout=2 /home/$USER/bin/hosts $USER@$NAME:/home/$USER/
-        sshpass -p $PASS ssh -t -t -o ConnectTimeout=2 $USER@$NAME 'echo "'$PASS'" | sudo -S sh /home/'$USER'/cn-setup.sh '$IP $USER $myhost 
-        sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'mkdir /home/'$USER'/.ssh && chmod 700 .ssh'
-        sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME "echo -e  'y\n' | ssh-keygen -f .ssh/id_rsa -t rsa -N ''"
-        sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'touch /home/'$USER'/.ssh/config'
-        sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'echo "Host *" >  /home/'$USER'/.ssh/config'
-        sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'echo StrictHostKeyChecking no >> /home/'$USER'/.ssh/config'
-        sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'chmod 400 /home/'$USER'/.ssh/config'
-        cat /home/$USER/.ssh/id_rsa.pub | sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'cat >> /home/'$USER'/.ssh/authorized_keys'
-        sshpass -p $PASS scp -o "StrictHostKeyChecking no" -o ConnectTimeout=2 $USER@$NAME:/home/$USER/.ssh/id_rsa.pub /home/$USER/.ssh/sub_node.pub
 
-        for SUBNODE in `cat /home/$USER/bin/hostips`; do
-                sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$SUBNODE 'mkdir -p .ssh'
-                cat /home/$USER/.ssh/sub_node.pub | sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$SUBNODE 'cat >> /home/'$USER'/.ssh/authorized_keys'
-        done
-        sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'chmod 700 /home/'$USER'/.ssh/'
-        sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'chmod 640 /home/'$USER'/.ssh/authorized_keys'
+rm /home/$USER/.ssh/known_hosts
+for name in `cat ~/bin/hostips`; do\
+        sshpass -p "$PASS" ssh $USER@$name "mkdir -p .ssh" && \
+        cat ~/.ssh/config | sshpass -p "$PASS" ssh $name "cat >> .ssh/config" && \
+        cat ~/.ssh/id_rsa | sshpass -p "$PASS" ssh $name "cat >> .ssh/id_rsa" && \
+        cat ~/.ssh/id_rsa.pub | sshpass -p "$PASS" ssh $name "cat >> .ssh/authorized_keys" && \
+        sshpass -p "$PASS" ssh $name "chmod 700 .ssh; chmod 640 .ssh/authorized_keys; chmod 400 .ssh/config; chmod 400 .ssh/id_rsa" && \
+        cat ~/bin/hostips | ssh $name "cat >> /home/$USER/hostips" && \
+        cat ~/bin/hosts | ssh $name "cat >> /home/$USER/hosts" ; \
 done
+
+
 
 cp ~/.ssh/authorized_keys /home/$USER/.ssh/authorized_keys
 cp /home/$USER/bin/hosts /mnt/resource/scratch/hosts
