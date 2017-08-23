@@ -59,8 +59,7 @@ chmod +x /home/$USER/bin/*.sh
 chown $USER:$USER /home/$USER/bin
 nmap -sn $localip.* | grep $localip. | awk '{print $5}' > /home/$USER/bin/hostips
 
-sed -i '/\<'$myhost'\>/d' /home/$USER/bin/hostips
-sed -i '/\<10.0.0.1\>/d' /home/$USER/bin/hostips
+sed -i '/\<'$IP'\>/d' /home/$USER/bin/hostips
 
 echo -e  'y\n' | ssh-keygen -f /home/$USER/.ssh/id_rsa -t rsa -N ''
 echo 'Host *' >> /home/$USER/.ssh/config
@@ -82,9 +81,9 @@ for name in `cat /home/$USER/bin/hostips`; do
         cat /home/$USER/.ssh/id_rsa | sshpass -p "$PASS" ssh $USER@$name "cat >> .ssh/id_rsa"
         cat /home/$USER/.ssh/id_rsa.pub | sshpass -p "$PASS" ssh $USER@$name "cat >> .ssh/authorized_keys"
         sshpass -p "$PASS" ssh $USER@$name "chmod 700 .ssh; chmod 640 .ssh/authorized_keys; chmod 400 .ssh/config; chmod 400 .ssh/id_rsa"
-        cat /home/$USER/bin/hostips | ssh $USER@$name "cat >> /home/$USER/hostips"
-        cat /home/$USER/bin/hosts | ssh $USER@$name "cat >> /home/$USER/hosts"
-        cat /home/$USER/bin/cn-setup.sh | ssh $USER@$name "cat >> /home/$USER/cn-setup.sh"
+        cat /home/$USER/bin/hostips | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/hostips"
+        cat /home/$USER/bin/hosts | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/hosts"
+        cat /home/$USER/bin/cn-setup.sh | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/cn-setup.sh"
         sshpass -p $PASS ssh -t -t -o ConnectTimeout=2 $USER@$NAME 'echo "'$PASS'" | sudo -S sh /home/'$USER'/cn-setup.sh '$IP $USER $myhost &
 done
 
