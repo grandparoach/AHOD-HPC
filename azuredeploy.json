@@ -178,14 +178,6 @@
 			}]
 		}
 	},{
-		"type": "Microsoft.Storage/storageAccounts",
-		"name": "[variables('jumpBoxSAName')]",
-		"apiVersion": "[variables('storageApiVersion')]",
-		"location": "[variables('resourceLocation')]",
-		"properties": {
-			"accountType": "[variables('storageAccountType')]"
-		}
-	}, {
 		"type": "Microsoft.Network/publicIPAddresses",
 		"name": "[variables('publicIPAddressName')]",
 		"apiVersion": "[variables('networkApiVersion')]",
