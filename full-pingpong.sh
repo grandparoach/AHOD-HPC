@@ -4,8 +4,8 @@
 declare -A matrix
 mpiversion=`ls /opt/intel/impi/`
 source /opt/intel/impi/$mpiversion/bin64/mpivars.sh
-for NODE in `cat ~/nodeips.txt`; \
-    do for NODE2 in `cat ~/nodeips.txt`; \
+for NODE in `cat ~/hosts`; \
+    do for NODE2 in `cat ~/hosts`; \
         do matrix[$NODE,$NODE2]=`/opt/intel/impi/$mpiversion/bin64/mpirun \
             -hosts $NODE,$NODE2 -ppn 1 -n 2 \
             -env I_MPI_FABRICS=shm:dapl \
@@ -23,14 +23,14 @@ f1="%$((${#num_rows}+1))s"
 f2=" %9s"
 
 printf "$f1" ' '
-for NODE in `cat ~/nodeips.txt`;\
+for NODE in `cat ~/hosts`;\
     do printf "$f2" $NODE
 done
 echo
 
-for NODE in `cat ~/nodeips.txt`; \
+for NODE in `cat ~/hosts`; \
     do printf $f1 $NODE
-    for NODE2 in `cat ~/nodeips.txt`; \
+    for NODE2 in `cat ~/hosts`; \
         do printf "$f2" ${matrix[$NODE,$NODE2]}
     done
     echo

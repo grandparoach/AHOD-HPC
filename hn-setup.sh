@@ -63,10 +63,10 @@ mv clusRun.sh cn-setup.sh /home/$USER/bin
 chmod +x /home/$USER/bin/*.sh
 chown $USER:$USER /home/$USER/bin
 
-nmap -sn $localip.* | grep $localip. | awk '{print $5}' > /home/$USER/bin/nodeips.txt
+nmap -sn $localip.* | grep $localip. | awk '{print $5}' > /home/$USER/bin/hostips
 myhost=`hostname -i`
-sed -i '/\<'$myhost'\>/d' /home/$USER/bin/nodeips.txt
-sed -i '/\<10.0.0.1\>/d' /home/$USER/bin/nodeips.txt
+sed -i '/\<'$myhost'\>/d' /home/$USER/bin/hostips
+sed -i '/\<10.0.0.1\>/d' /home/$USER/bin/hostips
 
 echo -e  'y\n' | ssh-keygen -f /home/$USER/.ssh/id_rsa -t rsa -N ''
 echo 'Host *' >> /home/$USER/.ssh/config
@@ -79,12 +79,12 @@ echo 'Host *' >> ~/.ssh/config
 echo 'StrictHostKeyChecking no' >> ~/.ssh/config
 chmod 400 ~/.ssh/config
 
-for NAME in `cat /home/$USER/bin/nodeips.txt`; do sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'hostname' >> /home/$USER/bin/nodenames.txt;done
+for NAME in `cat /home/$USER/bin/hostips`; do sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'hostname' >> /home/$USER/bin/hosts;done
 
-NAMES=`cat /home/$USER/bin/nodeips.txt` #names from names.txt file
+NAMES=`cat /home/$USER/bin/hostips` #names from names.txt file
 for NAME in $NAMES; do
         sshpass -p $PASS scp -o "StrictHostKeyChecking no" -o ConnectTimeout=2 /home/$USER/bin/cn-setup.sh $USER@$NAME:/home/$USER/
-        sshpass -p $PASS scp -o "StrictHostKeyChecking no" -o ConnectTimeout=2 /home/$USER/bin/nodenames.txt $USER@$NAME:/home/$USER/
+        sshpass -p $PASS scp -o "StrictHostKeyChecking no" -o ConnectTimeout=2 /home/$USER/bin/hosts $USER@$NAME:/home/$USER/
         sshpass -p $PASS ssh -t -t -o ConnectTimeout=2 $USER@$NAME 'echo "'$PASS'" | sudo -S sh /home/'$USER'/cn-setup.sh '$IP $USER $myhost 
         sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'mkdir /home/'$USER'/.ssh && chmod 700 .ssh'
         sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME "echo -e  'y\n' | ssh-keygen -f .ssh/id_rsa -t rsa -N ''"
@@ -95,7 +95,7 @@ for NAME in $NAMES; do
         cat /home/$USER/.ssh/id_rsa.pub | sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'cat >> /home/'$USER'/.ssh/authorized_keys'
         sshpass -p $PASS scp -o "StrictHostKeyChecking no" -o ConnectTimeout=2 $USER@$NAME:/home/$USER/.ssh/id_rsa.pub /home/$USER/.ssh/sub_node.pub
 
-        for SUBNODE in `cat /home/$USER/bin/nodeips.txt`; do
+        for SUBNODE in `cat /home/$USER/bin/hostips`; do
                 sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$SUBNODE 'mkdir -p .ssh'
                 cat /home/$USER/.ssh/sub_node.pub | sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$SUBNODE 'cat >> /home/'$USER'/.ssh/authorized_keys'
         done
@@ -104,7 +104,7 @@ for NAME in $NAMES; do
 done
 
 cp ~/.ssh/authorized_keys /home/$USER/.ssh/authorized_keys
-cp /home/$USER/bin/nodenames.txt /mnt/resource/scratch/hosts
+cp /home/$USER/bin/hosts /mnt/resource/scratch/hosts
 chown -R $USER:$USER /home/$USER/.ssh/
 chown -R $USER:$USER /home/$USER/bin/
 chown -R $USER:$USER /mnt/resource/scratch/
