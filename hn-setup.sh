@@ -83,8 +83,8 @@ for name in `cat /home/$USER/bin/hostips`; do\
         cat /home/$USER/.ssh/id_rsa.pub | sshpass -p "$PASS" ssh $USER@$name "cat >> .ssh/authorized_keys" && \
         sshpass -p "$PASS" ssh $USER@$name "chmod 700 .ssh; chmod 640 .ssh/authorized_keys; chmod 400 .ssh/config; chmod 400 .ssh/id_rsa" && \
         cat /home/$USER/bin/hostips | ssh $USER@$name "cat >> /home/$USER/hostips" && \
-        cat /home/$USER/bin/hosts | ssh $USER@$name "cat >> /home/$USER/hosts" ; \
-        echo $myhost, $localip | ssh $USER@$name "cat >> /home/$USER/jumpbox"
+        cat /home/$USER/bin/hosts | ssh $USER@$name "cat >> /home/$USER/hosts" && \
+        echo $myhost, $localip | ssh $USER@$name "cat >> /home/$USER/jumpbox" ; \
 done
 
 cp /home/$USER/bin/hosts /mnt/resource/scratch/hosts
