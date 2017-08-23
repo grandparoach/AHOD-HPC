@@ -40,7 +40,6 @@ ln -s /opt/intel/impi/${impi_version}/lib64/ /opt/intel/impi/${impi_version}/lib
 yum install -y -q epel-release
 yum install -y -q nfs-utils sshpass nmap htop pdsh screen git psmisc
 yum groupinstall -y "X Window System"
-npm install -g azure-cli
 
 myhost=`hostname`
 chmod +x install_ganglia.sh
@@ -85,12 +84,12 @@ NAMES=`cat /home/$USER/bin/hostips` #names from names.txt file
 rm /home/$USER/.ssh/known_hosts
 for name in `cat ~/bin/hostips`; do\
         sshpass -p "$PASS" ssh $USER@$name "mkdir -p .ssh" && \
-        cat ~/.ssh/config | sshpass -p "$PASS" ssh $name "cat >> .ssh/config" && \
-        cat ~/.ssh/id_rsa | sshpass -p "$PASS" ssh $name "cat >> .ssh/id_rsa" && \
-        cat ~/.ssh/id_rsa.pub | sshpass -p "$PASS" ssh $name "cat >> .ssh/authorized_keys" && \
+        cat /home/$USER/.ssh/config | sshpass -p "$PASS" ssh $name "cat >> .ssh/config" && \
+        cat /home/$USER/.ssh/id_rsa | sshpass -p "$PASS" ssh $name "cat >> .ssh/id_rsa" && \
+        cat /home/$USER/.ssh/id_rsa.pub | sshpass -p "$PASS" ssh $name "cat >> .ssh/authorized_keys" && \
         sshpass -p "$PASS" ssh $name "chmod 700 .ssh; chmod 640 .ssh/authorized_keys; chmod 400 .ssh/config; chmod 400 .ssh/id_rsa" && \
-        cat ~/bin/hostips | ssh $name "cat >> /home/$USER/hostips" && \
-        cat ~/bin/hosts | ssh $name "cat >> /home/$USER/hosts" ; \
+        cat /home/$USER/bin/hostips | ssh $name "cat >> /home/$USER/hostips" && \
+        cat /home/$USER/bin/hosts | ssh $name "cat >> /home/$USER/hosts" ; \
 done
 
 
