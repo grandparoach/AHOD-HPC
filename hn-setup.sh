@@ -81,7 +81,7 @@ chmod 400 ~/.ssh/config
 for NAME in `cat /home/$USER/bin/hostips`; do sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'hostname' >> /home/$USER/bin/hosts;done
 NAMES=`cat /home/$USER/bin/hostips` #names from names.txt file
 
-for name in `cat ~/bin/hostips`; do\
+for name in `cat /home/$USER/bin/hostips`; do\
         sshpass -p "$PASS" ssh $USER@$name "mkdir -p .ssh" && \
         cat /home/$USER/.ssh/config | sshpass -p "$PASS" ssh $name "cat >> .ssh/config" && \
         cat /home/$USER/.ssh/id_rsa | sshpass -p "$PASS" ssh $name "cat >> .ssh/id_rsa" && \
