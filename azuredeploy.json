@@ -22,6 +22,19 @@
 				"description": "Please select the solver that you would like to test"
 			}
 		},
+		"jumpboxSku": {
+			"defaultValue": "Standard_D3_v2",
+			"allowedValues": [
+				"Standard_D2_v2",
+				"Standard_D3_v2",
+				"Standard_D4_v2",
+				"Standard_D14_v2"
+			],
+			"type": "String",
+			"metadata": {
+				"description": "Which instance should be used for the jumpbox and ganglia web host?"
+			}
+		},
 		"vmSku": {
 			"defaultValue": "Standard_H16r",
 			"allowedValues": [
