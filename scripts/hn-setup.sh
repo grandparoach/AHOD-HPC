@@ -34,9 +34,14 @@ mkdir -p /mnt/resource/scratch/benchmark
 #ln -s /opt/intel/impi/${impi_version}/lib64/ /opt/intel/impi/${impi_version}/lib
 
 #Install needed packages
+yum check-update
 yum install -y -q epel-release
 yum install -y -q nfs-utils sshpass nmap htop pdsh screen git psmisc
+yum install -y gcc libffi-devel python-devel openssl-devel --disableexcludes=all
 yum groupinstall -y "X Window System"
+
+#install az cli
+curl -L https://aka.ms/InstallAzureCli | bash
 
 #Use ganglia install script to install ganglia, this is downloaded via the ARM template
 chmod +x install_ganglia.sh
