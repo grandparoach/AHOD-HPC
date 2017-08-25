@@ -165,7 +165,7 @@
 	"resources": [
 		{
 			"type": "Microsoft.Storage/storageAccounts",
-			"name": "longtermstorage",
+			"name": "[concat(uniqueString(concat(resourceGroup().id,longtermstorage)))]",
 			"apiVersion": "[variables('storageApiVersion')]",
 			"location": "[variables('resourceLocation')]",
 			"properties": {
