@@ -26,6 +26,9 @@ mkdir -p /home/$USER/bin
 mkdir -p /mnt/resource/scratch/applications
 mkdir -p /mnt/resource/scratch/INSTALLERS
 mkdir -p /mnt/resource/scratch/benchmark
+mkdir -p /mnt/lts
+ln -s /mnt/resource/scratch/ scratch
+ln -s /mnt/lts lts
 
 #Following lines are only needed if the head node is an RDMA connected VM
 #impi_version=`ls /opt/intel/impi`

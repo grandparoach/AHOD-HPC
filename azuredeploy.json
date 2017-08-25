@@ -119,6 +119,7 @@
 		"jumpBoxIPConfigName": "[concat(variables('jumpBoxName'), 'ipconfig')]",
 		"jumpBoxNicName": "[concat(variables('jumpBoxName'), 'nic')]",
 		"storageAccountType": "Standard_LRS",
+		"ltsName": "[concat(variables('longNamingInfix'),'lts')]",
 		"vhdContainerName": "[concat(variables('namingInfix'), 'vhd')]",
 		"osDiskName":"[concat(variables('namingInfix'), 'osdisk')]",
 		"addressPrefix": "10.0.0.0/16",
@@ -165,7 +166,7 @@
 	"resources": [
 		{
 			"type": "Microsoft.Storage/storageAccounts",
-			"name": "[concat(uniqueString(concat(resourceGroup().id,longtermstorage)))]",
+			"name": "[variables('ltsName')]",
 			"apiVersion": "[variables('storageApiVersion')]",
 			"location": "[variables('resourceLocation')]",
 			"properties": {
