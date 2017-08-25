@@ -33,8 +33,7 @@ echo export I_MPI_DAPL_PROVIDER=ofa-v2-ib0 >> $SHARE_HOME/.bashrc
 echo export I_MPI_ROOT=/opt/intel/compilers_and_libraries_2016.2.181/linux/mpi >> $SHARE_HOME/.bashrc
 echo export PATH=$SHARE_DATA/applications/12.02.010/STAR-CCM+12.02.010/star/bin:/opt/intel/impi/5.1.3.181/bin64:$PATH >> $SHARE_HOME/.bashrc
 echo export I_MPI_DYNAMIC_CONNECTION=0 >> $SHARE_HOME/.bashrc
-echo export I_MPI_PIN_PROCESSOR=8 >> $SHARE_HOME/.bashrc
-echo export I_MPI_DAPL_TRANSLATION_CACHE=0 >> /home/$USER/.bashrc
+
 echo '$SHARE_DATA/applications/12.02.010/STAR-CCM+12.02.010/star/bin/starccm+ -np 8 -machinefile $HOSTS -power -podkey '$PODKey' -rsh ssh -mpi intel -cpubind bandwidth,v -mppflags " -ppn 8 -genv I_MPI_DAPL_PROVIDER=ofa-v2-ib0 -genv I_MPI_PIN_PROCESSOR=8 -genv I_MPI_DAPL_UD=0 -genv I_MPI_DYNAMIC_CONNECTION=0" -batch runAndRecord.java $SHARE_DATA/benchmark/*.sim' >> $SHARE_DATA/benchmark/runccm_example.sh
 
 sh $SHARE_DATA/INSTALLERS/starccm+_12.02.010/STAR-CCM+12.02.010_01_linux-x86_64-2.5_gnu4.8.bin -i silent -DINSTALLDIR=$SHARE_DATA/applications -DNODOC=true -DINSTALLFLEX=false
