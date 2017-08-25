@@ -162,7 +162,17 @@
 		"networkApiVersion": "2016-03-30",
 		"storageApiVersion": "2015-06-15"
 	},
-	"resources": [{
+	"resources": [
+		{
+			"type": "Microsoft.Storage/storageAccounts",
+			"name": "longtermstorage",
+			"apiVersion": "[variables('storageApiVersion')]",
+			"location": "[variables('resourceLocation')]",
+			"properties": {
+				"accountType": "Standard_LRS"
+			}
+		}
+		{
 		"type": "Microsoft.Network/virtualNetworks",
 		"name": "[variables('virtualNetworkName')]",
 		"apiVersion": "[variables('networkApiVersion')]",
