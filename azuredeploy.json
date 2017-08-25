@@ -150,10 +150,10 @@
 		"JBimageReference": "[variables('JBoxType')]",
 		"vmScripts": {
 			"scriptsToDownload": [
-				"[concat(variables('scriptUrl'), 'cn-setup.sh')]",
-				"[concat(variables('scriptUrl'), 'hn-setup.sh')]",
-				"[concat(variables('scriptUrl'), 'install_ganglia.sh')]",
-				"[concat(variables('scriptUrl'), 'clusRun.sh')]",
+				"[concat(variables('scriptUrl'), 'scripts/cn-setup.sh')]",
+				"[concat(variables('scriptUrl'), 'scripts/hn-setup.sh')]",
+				"[concat(variables('scriptUrl'), 'scripts/install_ganglia.sh')]",
+				"[concat(variables('scriptUrl'), 'scripts/clusRun.sh')]",
 				"[concat(variables('scriptUrl'), 'solvers/install-', parameters('solver'), '.sh')]"	
 			],
 			"commandToExecute": ""

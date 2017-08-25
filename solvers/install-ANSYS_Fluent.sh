@@ -5,10 +5,7 @@ DOWN=$3
 HOST=`hostname`
 echo $USER,$LICIP,$HOST,$DOWN
 
-mkdir /mnt/resource/scratch
-mkdir /mnt/resource/scratch/benchmark
-mkdir /mnt/resource/scratch/INSTALLERS
-mkdir /mnt/resource/scratch/INSTALLERS/ANSYS
+mkdir -p /mnt/resource/scratch/INSTALLERS/ANSYS
 
 wget -q http://azbenchmarkstorage.blob.core.windows.net/ansysbenchmarkstorage/$DOWN -O /mnt/resource/scratch/benchmark/$DOWN
 wget -q https://raw.githubusercontent.com/tanewill/5clickTemplates/master/RawANSYSCluster/runme.jou -O /mnt/resource/scratch/benchmark/runme.jou
