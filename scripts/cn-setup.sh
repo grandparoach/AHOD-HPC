@@ -5,6 +5,7 @@ echo ##################################################
 IPPRE=$1
 USER=$2
 GANG_HOST=$3
+HOST=`hostname`
 if grep -q $IPPRE /etc/fstab; then FLAG=MOUNTED; else FLAG=NOTMOUNTED; fi
 
 
@@ -40,14 +41,14 @@ if [ $FLAG = NOTMOUNTED ] ; then
     echo export I_MPI_ROOT=/opt/intel/compilers_and_libraries_2016.2.181/linux/mpi >> /home/$USER/.bashrc
     echo export PATH=/opt/intel/impi/${impi_version}/bin64:$PATH >> /home/$USER/.bashrc
     echo export I_MPI_DYNAMIC_CONNECTION=0 >> /home/$USER/.bashrc
-    echo export I_MPI_PIN_PROCESSOR=8 >> /home/$USER/.bashrc
+    echo #export I_MPI_PIN_PROCESSOR=8 >> /home/$USER/.bashrc
     echo #export I_MPI_DAPL_TRANSLATION_CACHE=0 only un comment if you are having application stability issues >> /home/$USER/.bashrc
     
     #chown -R $USER:$USER /mnt/resource/
     
 
-    wget -q https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/full-pingpong.sh -O /home/$USER/full-pingpong.sh
-    wget -q https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/install_ganglia.sh -O /home/$USER/install_ganglia.sh
+    wget -q https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/scripts/full-pingpong.sh -O /home/$USER/full-pingpong.sh
+    wget -q https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/scripts/install_ganglia.sh -O /home/$USER/install_ganglia.sh
     chmod +x /home/$USER/install_ganglia.sh
     sh /home/$USER/install_ganglia.sh $GANG_HOST azure 8649
 
