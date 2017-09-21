@@ -27,8 +27,8 @@ mkdir -p /mnt/resource/scratch/applications
 mkdir -p /mnt/resource/scratch/INSTALLERS
 mkdir -p /mnt/resource/scratch/benchmark
 mkdir -p /mnt/lts
-ln -s /mnt/resource/scratch/ scratch
-ln -s /mnt/lts lts
+ln -s /mnt/resource/scratch/ /home/$USER/scratch
+ln -s /mnt/lts /home/$USER/lts
 
 #Following lines are only needed if the head node is an RDMA connected VM
 #impi_version=`ls /opt/intel/impi`
@@ -102,6 +102,7 @@ cp /home/$USER/bin/hosts /mnt/resource/scratch/hosts
 chown -R $USER:$USER /home/$USER/.ssh/
 chown -R $USER:$USER /home/$USER/bin/
 chown -R $USER:$USER /mnt/resource/scratch/
+chown -R $USER:$USER /mnt/lts
 chmod -R 744 /mnt/resource/scratch/
 
 # Don't require password for HPC user sudo
@@ -110,7 +111,8 @@ echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 # Disable tty requirement for sudo
 sed -i 's/^Defaults[ ]*requiretty/# Defaults requiretty/g' /etc/sudoers
 
-chmod +x install-$SOLVER.sh
-source install-$SOLVER.sh $USER $LICIP $DOWN
+name=`head -1 /home/$USER/bin/hostips`
+cat install-$SOLVER.sh | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/install-$SOLVER.sh"
+sshpass -p $PASS ssh -t -t -o ConnectTimeout=2 $USER@$name source install-$SOLVER.sh $USER $LICIP $DOWN
 
 

@@ -4,10 +4,6 @@ LICIP=$2
 HOST=`hostname`
 DOWN=$3
 echo $USER,$LICIP,$HOST,$DOWN
-mkdir /mnt/resource/scratch/
-mkdir /mnt/resource/scratch/applications
-mkdir /mnt/resource/scratch/INSTALLERS
-mkdir /mnt/resource/scratch/benchmark
 
 wget -q http://azbenchmarkstorage.blob.core.windows.net/cdadapcobenchmarkstorage/runAndRecord.java -O /mnt/resource/scratch/benchmark/runAndRecord.java
 wget -q http://azbenchmarkstorage.blob.core.windows.net/cdadapcobenchmarkstorage/STAR-CCM+11.06.011_01_linux-x86_64.tar.gz -O /mnt/resource/scratch/INSTALLERS/STAR-CCM+11.06.011_01_linux-x86_64.tar.gz
