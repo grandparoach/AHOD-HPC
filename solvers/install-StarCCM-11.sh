@@ -20,20 +20,13 @@ cd /mnt/resource/scratch/INSTALLERS/starccm+_11.06.011/
 
 echo export PODKey=$LICIP >> /home/$USER/.bashrc
 echo export CDLMD_LICENSE_FILE=1999@flex.cd-adapco.com >> /home/$USER/.bashrc
-echo export HOSTS=/home/$USER/bin/nodenames.txt
-echo export INTELMPI_ROOT=/opt/intel/impi/5.1.3.181 >> /home/$USER/.bashrc
-echo export I_MPI_FABRICS=shm:dapl >> /home/$USER/.bashrc
-echo export I_MPI_DAPL_PROVIDER=ofa-v2-ib0 >> /home/$USER/.bashrc
-echo export I_MPI_ROOT=/opt/intel/compilers_and_libraries_2016.2.181/linux/mpi >> /home/$USER/.bashrc
-echo export PATH=/mnt/resource/scratch/applications/11.06.011/STAR-CCM+11.06.011/star/bin:/opt/intel/impi/5.1.3.181/bin64:$PATH >> /home/$USER/.bashrc
-echo export I_MPI_DYNAMIC_CONNECTION=0 >> /home/$USER/.bashrc
-echo export I_MPI_DAPL_TRANSLATION_CACHE=0 >> /home/$USER/.bashrc
+echo export HOSTS=/home/$USER/bin/hosts
+echo #export I_MPI_DAPL_TRANSLATION_CACHE=0 >> /home/$USER/.bashrc
 echo '/mnt/resource/scratch/applications/STAR-CCM+11.04.012-R8/star/bin/starccm+ -np 8 -machinefile '$HOSTS' -power -podkey '$PODKey' -rsh ssh -mpi intel -cpubind bandwidth,v -mppflags " -ppn 8 -genv I_MPI_DAPL_PROVIDER=ofa-v2-ib0 -genv I_MPI_PIN_PROCESSOR=8 -genv I_MPI_DAPL_UD=0 -genv I_MPI_DYNAMIC_CONNECTION=0" -batch runAndRecord.java /mnt/resource/scratch/benchmark/*.sim' >> /mnt/resource/scratch/benchmark/runccm_example.sh
 
 sh /mnt/resource/scratch/INSTALLERS/starccm+_11.06.011/STAR-CCM+11.06.011_01_linux-x86_64-2.5_gnu4.8.bin -i silent -DINSTALLDIR=/mnt/resource/scratch/applications -DNODOC=true -DINSTALLFLEX=false
 rm -rf /mnt/resource/scratch/INSTALLERS/STAR-CCM+11.06.011_01_linux-x86_64.tar.gz
 rm /mnt/resource/scratch/INSTALLERS/*.tgz
 
-chown -R $USER:$USER /mnt/resource/scratch/*
-chown -R $USER:$USER /mnt/nfsshare
+chown -R $USER:$USER /mnt/resource/scratch/
 
