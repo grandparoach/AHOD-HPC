@@ -1,4 +1,6 @@
 #!/bin/bash
+set -x
+
 USER=$1
 LICIP=$2
 HOST=`hostname`
