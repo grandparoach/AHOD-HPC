@@ -4,10 +4,6 @@ LICIP=$2
 HOST=`hostname`
 DOWN=$3
 echo $USER,$LICIP,$HOST,$DOWN
-mkdir /mnt/resource/scratch/
-mkdir /mnt/resource/scratch/applications
-mkdir /mnt/resource/scratch/INSTALLERS
-mkdir /mnt/resource/scratch/benchmark
 
 export SHARE_DATA=/mnt/resource/scratch
 export SHARE_HOME=/home/$USER

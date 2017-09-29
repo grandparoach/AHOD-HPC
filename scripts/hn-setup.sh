@@ -1,4 +1,6 @@
 #!/bin/bash
+set -x
+
 SOLVER=$1
 USER=$2
 PASS=$3
@@ -27,6 +29,8 @@ mkdir -p /mnt/resource/scratch/applications
 mkdir -p /mnt/resource/scratch/INSTALLERS
 mkdir -p /mnt/resource/scratch/benchmark
 mkdir -p /mnt/lts
+
+
 ln -s /mnt/resource/scratch/ /home/$USER/scratch
 ln -s /mnt/lts /home/$USER/lts
 
