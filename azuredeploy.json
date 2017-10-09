@@ -300,7 +300,7 @@
 			"upgradePolicy": {
 				"mode": "Manual"
 			},
-			"singlePlacementGroup": false,
+			"singlePlacementGroup": true,
 			"virtualMachineProfile": {
 				"storageProfile": {
 					"imageReference": "[variables('imageReference')]",
