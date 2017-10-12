@@ -37,5 +37,5 @@ sh $SHARE_DATA/INSTALLERS/starccm+_12.02.010/STAR-CCM+12.02.010_01_linux-x86_64-
 #rm -rf $SHARE_DATA/INSTALLERS/STAR-CCM+12.02.010_01_linux-x86_64.tar.gz
 #rm $SHARE_DATA/*.tgz
 
-chown -R $USER:$USER /mnt/resource/scratch/*
+chown -R $USER:$USER /mnt/resource/scratch/
 chown -R $USER:$USER /mnt/nfsshare
