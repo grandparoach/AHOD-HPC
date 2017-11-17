@@ -54,8 +54,10 @@ curl -L https://aka.ms/InstallAzureCli | bash
 chmod +x install_ganglia.sh
 ./install_ganglia.sh $myhost azure 8649
 
-#Setup the NFS server
+#Setup the NFS server and mount the gluster
 echo "/mnt/resource/scratch $localip.*(rw,sync,no_root_squash,no_all_squash)" | tee -a /etc/exports
+echo "$GFSIP:/gv0       /mnt/gfs  glusterfs   defaults,_netdev  0  0" | tee -a /etc/fstab
+
 systemctl enable rpcbind
 systemctl enable nfs-server
 systemctl enable nfs-lock
@@ -65,6 +67,8 @@ systemctl start nfs-server
 systemctl start nfs-lock
 systemctl start nfs-idmap
 systemctl restart nfs-server
+mount -a
+
 
 mv clusRun.sh cn-setup.sh /home/$USER/bin
 chmod +x /home/$USER/bin/*.sh
@@ -77,8 +81,7 @@ sed -i '/\<10.0.0.1\>/d' /home/$USER/bin/hostips
 echo -e  'y\n' | ssh-keygen -f /home/$USER/.ssh/id_rsa -t rsa -N ''
 echo 'Host *' >> /home/$USER/.ssh/config
 echo 'StrictHostKeyChecking no' >> /home/$USER/.ssh/config
-echo "$GFSIP:/mnt/gfs       /mnt/gfs  glusterfs   defaults,_netdev  0  0" | tee -a /etc/fstab
-mount -a
+
 chmod 400 /home/$USER/.ssh/config
 chown $USER:$USER /home/$USER/.ssh/config
 

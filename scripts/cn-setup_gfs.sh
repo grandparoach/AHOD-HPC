@@ -32,7 +32,7 @@ if [ $FLAG = NOTMOUNTED ] ; then
     localip=`hostname -i | cut --delimiter='.' -f -3`
     echo "$IPPRE:/mnt/nfsshare    /mnt/nfsshare   nfs defaults 0 0" | tee -a /etc/fstab
     echo "$IPPRE:/mnt/resource/scratch    /mnt/resource/scratch   nfs defaults 0 0" | tee -a /etc/fstab
-    echo "$GFSIP:/mnt/gfs       /mnt/gfs  glusterfs   defaults,_netdev  0  0" | tee -a /etc/fstab
+    echo "$GFSIP:/gv0       /mnt/gfs  glusterfs   defaults,_netdev  0  0" | tee -a /etc/fstab
     mount -a
     df | grep $IPPRE
     impi_version=`ls /opt/intel/impi`
