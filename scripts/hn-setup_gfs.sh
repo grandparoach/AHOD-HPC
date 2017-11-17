@@ -70,7 +70,7 @@ systemctl restart nfs-server
 mount -a
 
 
-mv clusRun.sh cn-setup.sh /home/$USER/bin
+mv clusRun.sh cn-setup_gfs.sh /home/$USER/bin
 chmod +x /home/$USER/bin/*.sh
 chown $USER:$USER /home/$USER/bin
 nmap -sn $localip.* | grep $localip. | awk '{print $5}' > /home/$USER/bin/hostips
@@ -101,8 +101,8 @@ for name in `cat /home/$USER/bin/hostips`; do
         sshpass -p "$PASS" ssh $USER@$name "chmod 700 .ssh; chmod 640 .ssh/authorized_keys; chmod 400 .ssh/config; chmod 400 .ssh/id_rsa"
         cat /home/$USER/bin/hostips | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/hostips"
         cat /home/$USER/bin/hosts | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/hosts"
-        cat /home/$USER/bin/cn-setup.sh | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/cn-setup.sh"
-        sshpass -p $PASS ssh -t -t -o ConnectTimeout=2 $USER@$name 'echo "'$PASS'" | sudo -S sh /home/'$USER'/cn-setup.sh '$IP $USER $myhost $GFSIP &
+        cat /home/$USER/bin/cn-setup_gfs.sh | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/cn-setup_gfs.sh"
+        sshpass -p $PASS ssh -t -t -o ConnectTimeout=2 $USER@$name 'echo "'$PASS'" | sudo -S sh /home/'$USER'/cn-setup_gfs.sh '$IP $USER $myhost $GFSIP &
 done
 
 
