@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+#set -x
 set +e
 
 SOLVER=$1
@@ -34,7 +34,7 @@ mkdir -p /mnt/gfs
 
 
 ln -s /mnt/resource/scratch/ /home/$USER/scratch
-ln -s /mnt/lts /home/$USER/lts
+ln -s /mnt/gfs /home/$USER/gfs
 
 #Following lines are only needed if the head node is an RDMA connected VM
 #impi_version=`ls /opt/intel/impi`

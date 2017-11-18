@@ -1,6 +1,6 @@
 #!/bin/bash
-
-set -x
+set +e
+#set -x
 #set -xeuo pipefail
 
 if [[ $(id -u) -ne 0 ]] ; then

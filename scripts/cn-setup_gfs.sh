@@ -65,6 +65,13 @@ if [ $FLAG = NOTMOUNTED ] ; then
     chown $USER:$USER /home/$USER/full-pingpong.sh
 
     ln -s /mnt/resource/scratch/ /home/$USER/scratch
+    ln -s /mnt/gfs/ /home/$USER/gfs
+
+    # Don't require password for HPC user sudo
+    echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+    
+    # Disable tty requirement for sudo
+    sed -i 's/^Defaults[ ]*requiretty/# Defaults requiretty/g' /etc/sudoers 
 
 else
     echo already mounted
