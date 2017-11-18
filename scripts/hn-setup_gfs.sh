@@ -1,5 +1,6 @@
 #!/bin/bash
 set -x
+set +e
 
 SOLVER=$1
 USER=$2
