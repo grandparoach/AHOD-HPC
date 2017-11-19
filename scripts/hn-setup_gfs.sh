@@ -8,6 +8,8 @@ PASS=$3
 DOWN=$4
 LICIP=$5
 GFSIP=$6
+RGNAME=$7
+LTSNAME=$8
 
 IP=`ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'`
 localip=`echo $IP | cut --delimiter='.' -f -3`
@@ -35,6 +37,7 @@ mkdir -p /mnt/gfs
 
 ln -s /mnt/resource/scratch/ /home/$USER/scratch
 ln -s /mnt/gfs /home/$USER/gfs
+ln -s /mnt/lts /home/$USER/lts
 
 #Following lines are only needed if the head node is an RDMA connected VM
 #impi_version=`ls /opt/intel/impi`
@@ -44,18 +47,24 @@ ln -s /mnt/gfs /home/$USER/gfs
 
 #Install needed packages
 yum check-update
-yum install -y -q nfs-utils pdsh epel-release sshpass nmap htop pdsh screen git psmisc glusterfs glusterfs-fuse attr
+yum install -y -q nfs-utils pdsh epel-release sshpass nmap htop pdsh screen git psmisc glusterfs glusterfs-fuse attr cifs-utils
 yum install -y gcc libffi-devel python-devel openssl-devel --disableexcludes=all
 yum groupinstall -y "X Window System"
 
 #install az cli
 curl -L https://aka.ms/InstallAzureCli | bash
+exec -l $SHELL
 
 #Use ganglia install script to install ganglia, this is downloaded via the ARM template
 chmod +x install_ganglia.sh
 ./install_ganglia.sh $myhost azure 8649
 
-#Setup the NFS server and mount the gluster
+#Setup the NFS server, mount the gluster, get Long Term Storage Keys
+ltsKey=`az storage account keys list --resource-group $RGNAME --account-name $LTSNAME --query '[0].{Key:value}' --output tsv`
+az storage share create --name longtermstorage --quota 10 --account-name $LTSNAME --account-key $ltsKey
+#sudo mount -t cifs //myStorageAccount.file.core.windows.net/mystorageshare /mnt/mymountdirectory -o vers=3.0,username=mystorageaccount,password=mystorageaccountkey,dir_mode=0777,file_mode=0777
+
+echo "//$LTSNAME.file.core.windows.net/longtermstorage /mnt/lts cifs vers=3.0,username=$LTSNAME,password=$ltsKey,dir_mode=0777,file_mode=0777" | tee -a /etc/exports
 echo "/mnt/resource/scratch $localip.*(rw,sync,no_root_squash,no_all_squash)" | tee -a /etc/exports
 echo "$GFSIP:/gv0       /mnt/gfs  glusterfs   defaults,_netdev  0  0" | tee -a /etc/fstab
 
@@ -103,7 +112,7 @@ for name in `cat /home/$USER/bin/hostips`; do
         cat /home/$USER/bin/hostips | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/hostips"
         cat /home/$USER/bin/hosts | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/hosts"
         cat /home/$USER/bin/cn-setup_gfs.sh | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/cn-setup_gfs.sh"
-        sshpass -p $PASS ssh -t -t -o ConnectTimeout=2 $USER@$name 'echo "'$PASS'" | sudo -S sh /home/'$USER'/cn-setup_gfs.sh '$IP $USER $myhost $GFSIP &
+        sshpass -p $PASS ssh -t -t -o ConnectTimeout=2 $USER@$name 'echo "'$PASS'" | sudo -S sh /home/'$USER'/cn-setup_gfs.sh '$IP $USER $myhost $GFSIP $RGNAME &
 done
 
 
