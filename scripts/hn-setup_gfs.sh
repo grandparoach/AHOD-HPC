@@ -49,7 +49,7 @@ ln -s /mnt/lts /home/$USER/lts
 
 #Install needed packages
 yum check-update
-yum install -y -q nfs-utils pdsh epel-release sshpass nmap htop pdsh screen git psmisc glusterfs glusterfs-fuse attr cifs-utils python-pip
+yum install -y -q nfs-utils pdsh epel-release sshpass nmap htop pdsh screen git psmisc glusterfs glusterfs-fuse attr cifs-utils
 yum install -y gcc libffi-devel python-devel openssl-devel --disableexcludes=all
 yum groupinstall -y "X Window System"
 
