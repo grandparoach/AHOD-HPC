@@ -49,24 +49,16 @@ ln -s /mnt/lts /home/$USER/lts
 
 #Install needed packages
 yum check-update
-yum install -y -q nfs-utils pdsh epel-release sshpass nmap htop pdsh screen git psmisc glusterfs glusterfs-fuse attr cifs-utils
+yum install -y -q nfs-utils pdsh epel-release sshpass nmap htop pdsh screen git psmisc glusterfs glusterfs-fuse attr cifs-utils python-pip
 yum install -y gcc libffi-devel python-devel openssl-devel --disableexcludes=all
 yum groupinstall -y "X Window System"
-
-#install az cli
-curl -L https://aka.ms/InstallAzureCli | bash
-exec -l $SHELL
 
 #Use ganglia install script to install ganglia, this is downloaded via the ARM template
 chmod +x install_ganglia.sh
 ./install_ganglia.sh $myhost azure 8649
 
-#Setup the NFS server, mount the gluster, get Long Term Storage Keys
-ltsKey=`az storage account keys list --resource-group $RGNAME --account-name $LTSNAME --query '[0].{Key:value}' --output tsv`
-az storage share create --name longtermstorage --quota 10 --account-name $LTSNAME --account-key $ltsKey
 #sudo mount -t cifs //myStorageAccount.file.core.windows.net/mystorageshare /mnt/mymountdirectory -o vers=3.0,username=mystorageaccount,password=mystorageaccountkey,dir_mode=0777,file_mode=0777
-
-echo "//$LTSNAME.file.core.windows.net/longtermstorage /mnt/lts cifs vers=3.0,username=$LTSNAME,password=$ltsKey,dir_mode=0777,file_mode=0777" | tee -a /etc/fstab
+#Setup the NFS server, mount the gluster, get Long Term Storage Keys
 echo "/mnt/resource/scratch $localip.*(rw,sync,no_root_squash,no_all_squash)" | tee -a /etc/exports
 echo "$GFSIP:/gv0       /mnt/gfs  glusterfs   defaults,_netdev  0  0" | tee -a /etc/fstab
 
