@@ -1,6 +1,6 @@
 #!/bin/bash
 #set -x
-set +e
+#set +e
 
 SOLVER=$1
 USER=$2
@@ -64,7 +64,7 @@ ltsKey=`az storage account keys list --resource-group $RGNAME --account-name $LT
 az storage share create --name longtermstorage --quota 10 --account-name $LTSNAME --account-key $ltsKey
 #sudo mount -t cifs //myStorageAccount.file.core.windows.net/mystorageshare /mnt/mymountdirectory -o vers=3.0,username=mystorageaccount,password=mystorageaccountkey,dir_mode=0777,file_mode=0777
 
-echo "//$LTSNAME.file.core.windows.net/longtermstorage /mnt/lts cifs vers=3.0,username=$LTSNAME,password=$ltsKey,dir_mode=0777,file_mode=0777" | tee -a /etc/exports
+echo "//$LTSNAME.file.core.windows.net/longtermstorage /mnt/lts cifs vers=3.0,username=$LTSNAME,password=$ltsKey,dir_mode=0777,file_mode=0777" | tee -a /etc/fstab
 echo "/mnt/resource/scratch $localip.*(rw,sync,no_root_squash,no_all_squash)" | tee -a /etc/exports
 echo "$GFSIP:/gv0       /mnt/gfs  glusterfs   defaults,_netdev  0  0" | tee -a /etc/fstab
 
