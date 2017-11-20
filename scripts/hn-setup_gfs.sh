@@ -23,6 +23,8 @@ echo Model is: $DOWN
 cat << EOF >> /etc/security/limits.conf
 *               hard    memlock         unlimited
 *               soft    memlock         unlimited
+*               hard    nofile          65535
+*               soft    nofile          65535
 EOF
 
 #Create directories needed for configuration
