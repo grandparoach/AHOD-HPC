@@ -1,6 +1,6 @@
 #!/bin/bash
-set -x
-set +e
+#set -x
+#set +e
 
 SOLVER=$1
 USER=$2
@@ -48,8 +48,8 @@ ln -s /mnt/lts /home/$USER/lts
 #Install needed packages
 yum check-update
 yum install -y -q nfs-utils pdsh epel-release sshpass nmap htop pdsh screen git psmisc glusterfs glusterfs-fuse attr cifs-utils
-yum install -y gcc libffi-devel python-devel openssl-devel --disableexcludes=all
-yum groupinstall -y "X Window System"
+yum install -y -q gcc libffi-devel python-devel openssl-devel --disableexcludes=all
+yum groupinstall -y -q "X Window System"
 
 #Use ganglia install script to install ganglia, this is downloaded via the ARM template
 chmod +x install_ganglia.sh

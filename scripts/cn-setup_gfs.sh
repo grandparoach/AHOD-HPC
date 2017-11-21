@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+#set -x
 #set +e
 
 echo ##################################################
@@ -18,9 +18,7 @@ if [ $FLAG = NOTMOUNTED ] ; then
     echo $FLAG
     echo installing NFS and mounting
     yum install -y -q nfs-utils pdsh epel-release sshpass nmap htop pdsh screen git psmisc glusterfs glusterfs-fuse attr
-    yum groupinstall -y "X Window System"
-    curl -L https://aka.ms/InstallAzureCli | bash
-    exec -l $SHELL
+    yum groupinstall -y -q "X Window System"
 
     mkdir -p /mnt/nfsshare
     mkdir -p /mnt/resource/scratch

@@ -33,10 +33,10 @@ install_ganglia_gmetad()
 	
 	#web server
 	# curl-devel is commented as it can't be sucessfully downloaded from the endpoints used in Azure VMs.
-    yum -y install httpd php php-mysql php-gd php-ldap php-odbc php-pear php-xml php-xmlrpc php-mbstring php-snmp php-soap curl #curl-devel
+    yum -y -q install httpd php php-mysql php-gd php-ldap php-odbc php-pear php-xml php-xmlrpc php-mbstring php-snmp php-soap curl #curl-devel
 
 	#ganglia server
-	yum -y install rrdtool rrdtool-devel ganglia-web ganglia-metad ganglia-gmond ganglia-gmond-python httpd apr-devel zlib-devel libconfuse-devel expat-devel pcre-devel
+	yum -y -q install rrdtool rrdtool-devel ganglia-web ganglia-metad ganglia-gmond ganglia-gmond-python httpd apr-devel zlib-devel libconfuse-devel expat-devel pcre-devel
 
 
 	GMETAD_CONFIG=/etc/ganglia/gmetad.conf	
