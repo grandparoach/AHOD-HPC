@@ -8,8 +8,6 @@ PASS=$3
 DOWN=$4
 LICIP=$5
 GFSIP=$6
-RGNAME=$7
-LTSNAME=$8
 
 IP=`ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'`
 localip=`echo $IP | cut --delimiter='.' -f -3`
@@ -107,7 +105,7 @@ for name in `cat /home/$USER/bin/hostips`; do
         cat /home/$USER/bin/hostips | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/hostips"
         cat /home/$USER/bin/hosts | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/hosts"
         cat /home/$USER/bin/cn-setup_gfs.sh | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/cn-setup_gfs.sh"
-        sshpass -p $PASS ssh -t -t -o ConnectTimeout=2 $USER@$name 'echo "'$PASS'" | sudo -S sh /home/'$USER'/cn-setup_gfs.sh '$IP $USER $myhost $GFSIP $RGNAME &
+        sshpass -p $PASS ssh -t -t -o ConnectTimeout=2 $USER@$name 'echo "'$PASS'" | sudo -S sh /home/'$USER'/cn-setup_gfs.sh '$IP $USER $myhost $GFSIP & > /dev/null 2>&1
 done
 
 

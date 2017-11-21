@@ -9,7 +9,6 @@ IPPRE=$1
 USER=$2
 GANG_HOST=$3
 GFSIP=$4
-RGNAME=$5
 
 HOST=`hostname`
 if grep -q $IPPRE /etc/fstab; then FLAG=MOUNTED; else FLAG=NOTMOUNTED; fi
