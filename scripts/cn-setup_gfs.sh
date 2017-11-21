@@ -56,7 +56,7 @@ if [ $FLAG = NOTMOUNTED ] ; then
         export I_MPI_FABRICS=shm:dapl
         export I_MPI_DAPL_PROVIDER=ofa-v2-ib0
         export I_MPI_DYNAMIC_CONNECTION=0
-    EOF
+EOF
         #SET ENV VARS
 #    echo e xport FLUENT_HOSTNAME=$HOST >> /home/$USER/.bashrc
 #    echo  >> /home/$USER/.bashrc
