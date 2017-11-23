@@ -76,7 +76,7 @@ mv clusRun.sh cn-setup_gfs.sh /home/$USER/bin
 chmod +x /home/$USER/bin/*.sh
 chown $USER:$USER /home/$USER/bin
 nmap -sn $localip.* | grep $localip. | awk '{print $5}' > /home/$USER/bin/hostips
-    export WCOLL=/home/$USER/bin/hostips
+export WCOLL=/home/$USER/bin/hostips
 
 sed -i '/\<'$IP'\>/d' /home/$USER/bin/hostips
 sed -i '/\<10.0.0.1\>/d' /home/$USER/bin/hostips
