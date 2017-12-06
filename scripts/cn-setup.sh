@@ -34,17 +34,22 @@ if [ $FLAG = NOTMOUNTED ] ; then
     ln -s /opt/intel/impi/${impi_version}/intel64/bin/ /opt/intel/impi/${impi_version}/bin
     ln -s /opt/intel/impi/${impi_version}/lib64/ /opt/intel/impi/${impi_version}/lib
     
-    echo export FLUENT_HOSTNAME=$HOST >> /home/$USER/.bashrc
-    echo export INTELMPI_ROOT=/opt/intel/impi/${impi_version} >> /home/$USER/.bashrc
-    echo export I_MPI_FABRICS=shm:dapl >> /home/$USER/.bashrc
-    echo export I_MPI_DAPL_PROVIDER=ofa-v2-ib0 >> /home/$USER/.bashrc
-    echo export I_MPI_ROOT=/opt/intel/compilers_and_libraries_2016.2.181/linux/mpi >> /home/$USER/.bashrc
-    echo export MPI_ROOT=$I_MPI_ROOT >> /home/$USER/.bashrc
-    echo export PATH=/opt/intel/impi/${impi_version}/bin64:$PATH >> /home/$USER/.bashrc
-    echo export I_MPI_DYNAMIC_CONNECTION=0 >> /home/$USER/.bashrc
-    echo #export I_MPI_PIN_PROCESSOR=8 >> /home/$USER/.bashrc
-    echo #export I_MPI_DAPL_TRANSLATION_CACHE=0 only un comment if you are having application stability issues >> /home/$USER/.bashrc
-    
+
+    #SET ENV VARS
+    cat << EOF >> /home/$USER/.bashrc
+        if [ -d "/opt/intel/impi" ]; then
+            source /opt/intel/impi/*/bin64/mpivars.sh
+        fi
+        export FLUENT_HOSTNAME=$HOST
+        export PATH=/home/$USER/bin:\$PATH
+        export INTELMPI_ROOT=/opt/intel/impi/${impi_version}
+        export I_MPI_FABRICS=shm:dapl
+        export I_MPI_DAPL_PROVIDER=ofa-v2-ib0
+        export I_MPI_DYNAMIC_CONNECTION=0
+        #export I_MPI_DAPL_TRANSLATION_CACHE=0 only un comment if you are having application stability issues
+        echo export WCOLL=/mnt/resource/scratch/hosts >> /home/$USER/.bashrc
+        #export I_MPI_PIN_PROCESSOR=8 
+EOF
     #chown -R $USER:$USER /mnt/resource/
     
 

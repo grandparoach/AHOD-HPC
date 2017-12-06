@@ -48,8 +48,8 @@ yum install -y gcc libffi-devel python-devel openssl-devel --disableexcludes=all
 yum groupinstall -y "X Window System"
 
 #install az cli
-curl -L https://aka.ms/InstallAzureCli | bash
-
+#curl -L https://aka.ms/InstallAzureCli | bash
+echo export WCOLL=/mnt/resource/scratch/hosts >> /home/$USER/.bashrc
 #Use ganglia install script to install ganglia, this is downloaded via the ARM template
 chmod +x install_ganglia.sh
 ./install_ganglia.sh $myhost azure 8649
@@ -66,13 +66,13 @@ systemctl start nfs-lock
 systemctl start nfs-idmap
 systemctl restart nfs-server
 
-mv clusRun.sh cn-setup.sh /home/$USER/bin
+cp clusRun.sh cn-setup.sh /mnt/resource/scratch/
 chmod +x /home/$USER/bin/*.sh
 chown $USER:$USER /home/$USER/bin
-nmap -sn $localip.* | grep $localip. | awk '{print $5}' > /home/$USER/bin/hostips
+nmap -sn $localip.* | grep $localip. | awk '{print $5}' > /mnt/resource/scratch/hostips
 
-sed -i '/\<'$IP'\>/d' /home/$USER/bin/hostips
-sed -i '/\<10.0.0.1\>/d' /home/$USER/bin/hostips
+sed -i '/\<'$IP'\>/d' /mnt/resource/scratch/hostips
+sed -i '/\<10.0.0.1\>/d' /mnt/resource/scratch/hostips
 
 echo -e  'y\n' | ssh-keygen -f /home/$USER/.ssh/id_rsa -t rsa -N ''
 echo 'Host *' >> /home/$USER/.ssh/config
@@ -85,24 +85,19 @@ echo 'Host *' >> ~/.ssh/config
 echo 'StrictHostKeyChecking no' >> ~/.ssh/config
 chmod 400 ~/.ssh/config
 
-for NAME in `cat /home/$USER/bin/hostips`; do sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'hostname' >> /home/$USER/bin/hosts;done
-NAMES=`cat /home/$USER/bin/hostips` #names from names.txt file
+for NAME in `cat /mnt/resource/scratch/hostips`; do sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'hostname' >> /mnt/resource/scratch/hosts;done
+NAMES=`cat /mnt/resource/scratch/hostips` #names from names.txt file
 
-for name in `cat /home/$USER/bin/hostips`; do
+for name in `cat /mnt/resource/scratch/hostips`; do
         sshpass -p "$PASS" ssh $USER@$name "mkdir -p .ssh"
         cat /home/$USER/.ssh/config | sshpass -p "$PASS" ssh $USER@$name "cat >> .ssh/config"
         cat /home/$USER/.ssh/id_rsa | sshpass -p "$PASS" ssh $USER@$name "cat >> .ssh/id_rsa"
         cat /home/$USER/.ssh/id_rsa.pub | sshpass -p "$PASS" ssh $USER@$name "cat >> .ssh/authorized_keys"
         sshpass -p "$PASS" ssh $USER@$name "chmod 700 .ssh; chmod 640 .ssh/authorized_keys; chmod 400 .ssh/config; chmod 400 .ssh/id_rsa"
-        cat /home/$USER/bin/hostips | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/hostips"
-        cat /home/$USER/bin/hosts | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/hosts"
-        cat /home/$USER/bin/cn-setup.sh | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/cn-setup.sh"
+        cat /mnt/resource/scratch/cn-setup.sh | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/cn-setup.sh"
         sshpass -p $PASS ssh -t -t -o ConnectTimeout=2 $USER@$name 'echo "'$PASS'" | sudo -S sh /home/'$USER'/cn-setup.sh '$IP $USER $myhost &
 done
 
-
-
-cp /home/$USER/bin/hosts /mnt/resource/scratch/hosts
 chown -R $USER:$USER /home/$USER/.ssh/
 chown -R $USER:$USER /home/$USER/bin/
 chown -R $USER:$USER /mnt/resource/scratch/
@@ -115,7 +110,7 @@ echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 # Disable tty requirement for sudo
 sed -i 's/^Defaults[ ]*requiretty/# Defaults requiretty/g' /etc/sudoers
 
-name=`head -1 /home/$USER/bin/hostips`
+name=`head -1 /mnt/resource/scratch/hostips`
 cat install-$SOLVER.sh | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/install-$SOLVER.sh"
 sshpass -p $PASS ssh -t -t -o ConnectTimeout=2 $USER@$name source install-$SOLVER.sh $USER $LICIP $DOWN > script_output
 
