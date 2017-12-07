@@ -118,11 +118,9 @@
 		"jumpBoxName": "[concat(variables('namingInfix'),'-jb')]",
 		"jumpBoxIPConfigName": "[concat(variables('jumpBoxName'), 'ipconfig')]",
 		"jumpBoxNicName": "[concat(variables('jumpBoxName'), '-nic')]",
-		"storageAccountType": "Standard_LRS",
+		"vmssNameFix": "[concat(variables('namingInfix'),'vmss')]",
 		"ltsName": "[concat(variables('namingInfix'),'lts')]",
 		"osDiskName":"[concat(variables('namingInfix'), 'osdisk')]",
-		"addressPrefix": "10.0.0.0/16",
-		"subnetPrefix": "10.0.0.0/24",
 		"virtualNetworkName": "[concat(variables('namingInfix'), 'vnet')]",
 		"subnetName": "[concat(variables('namingInfix'), 'subnet')]",
 		"vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
@@ -131,6 +129,9 @@
 		"publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]",
 		"nicName": "[concat(variables('namingInfix'), '-nic')]",
 		"ipConfigName": "[concat(variables('namingInfix'), 'ipconfig')]",
+		"storageAccountType": "Standard_LRS",
+		"addressPrefix": "10.0.0.0/16",
+		"subnetPrefix": "10.0.0.0/24",
 		"scriptUrl": "https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/",
 		"cnSetupScript": "cn-setup.sh",
 		"hnSetupScript": "hn-setup.sh",
@@ -276,7 +277,7 @@
 			},
 			"dependsOn": [
 				"[concat('Microsoft.Compute/virtualMachines/', variables('jumpBoxName'))]",
-				"[concat('Microsoft.Compute/virtualMachineScaleSets/',variables('namingInfix'))]"
+				"[concat('Microsoft.Compute/virtualMachineScaleSets/',variables('vmssNameFix'))]"
 			]
 		}],
 		"dependsOn": [
@@ -289,7 +290,7 @@
 			"tier": "Standard",
 			"capacity": "[parameters('instanceCount')]"
 		},
-		"name": "[concat(variables('namingInfix'),'vmss')]",
+		"name": "[variables('vmssNameFix')]",
 		"apiVersion": "[variables('computeApiVersion')]",
 		"location": "[variables('resourceLocation')]",
 		"properties": {
