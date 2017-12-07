@@ -115,9 +115,9 @@
 	"variables": {
 		"resourceLocation": "[resourceGroup().location]",
 		"namingInfix": "[toLower(substring(concat(parameters('vmssName'), uniqueString(resourceGroup().id)), 0, 9))]",
-		"jumpBoxName": "[concat(variables('namingInfix'),'jb')]",
+		"jumpBoxName": "[concat(variables('namingInfix'),'-jb')]",
 		"jumpBoxIPConfigName": "[concat(variables('jumpBoxName'), 'ipconfig')]",
-		"jumpBoxNicName": "[concat(variables('jumpBoxName'), 'nic')]",
+		"jumpBoxNicName": "[concat(variables('jumpBoxName'), '-nic')]",
 		"storageAccountType": "Standard_LRS",
 		"ltsName": "[concat(variables('namingInfix'),'lts')]",
 		"osDiskName":"[concat(variables('namingInfix'), 'osdisk')]",
@@ -127,9 +127,9 @@
 		"subnetName": "[concat(variables('namingInfix'), 'subnet')]",
 		"vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
 		"subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
-		"publicIPAddressName": "[concat(variables('namingInfix'), 'pip')]",
+		"publicIPAddressName": "[concat(variables('namingInfix'), '-pip')]",
 		"publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]",
-		"nicName": "[concat(variables('namingInfix'), 'nic')]",
+		"nicName": "[concat(variables('namingInfix'), '-nic')]",
 		"ipConfigName": "[concat(variables('namingInfix'), 'ipconfig')]",
 		"scriptUrl": "https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/",
 		"cnSetupScript": "cn-setup.sh",
@@ -289,7 +289,7 @@
 			"tier": "Standard",
 			"capacity": "[parameters('instanceCount')]"
 		},
-		"name": "[variables('namingInfix')]",
+		"name": "[concat(variables('namingInfix'),'vmss')]",
 		"apiVersion": "[variables('computeApiVersion')]",
 		"location": "[variables('resourceLocation')]",
 		"properties": {

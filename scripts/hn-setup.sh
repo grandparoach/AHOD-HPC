@@ -28,8 +28,8 @@ mkdir -p /home/$USER/bin
 mkdir -p /mnt/resource/scratch/applications
 mkdir -p /mnt/resource/scratch/INSTALLERS
 mkdir -p /mnt/resource/scratch/benchmark
+mkdir -p /mnt/resource/scratch/scripts
 mkdir -p /mnt/lts
-
 
 ln -s /mnt/resource/scratch/ /home/$USER/scratch
 ln -s /mnt/lts /home/$USER/lts
