@@ -12,7 +12,7 @@ if grep -q $IPPRE /etc/fstab; then FLAG=MOUNTED; else FLAG=NOTMOUNTED; fi
 if [ $FLAG = NOTMOUNTED ] ; then 
     echo $FLAG
     echo installing NFS and mounting
-    yum install -y -q nfs-utils pdsh
+    yum install -y -q nfs-utils
     mkdir -p /mnt/nfsshare
     mkdir -p /mnt/resource/scratch
     chmod 777 /mnt/nfsshare
@@ -52,17 +52,18 @@ if [ $FLAG = NOTMOUNTED ] ; then
 EOF
     #chown -R $USER:$USER /mnt/resource/
     
-
     wget -q https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/scripts/full-pingpong.sh -O /home/$USER/full-pingpong.sh
     wget -q https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/scripts/install_ganglia.sh -O /home/$USER/install_ganglia.sh
     chmod +x /home/$USER/install_ganglia.sh
     sh /home/$USER/install_ganglia.sh $GANG_HOST azure 8649
 
-
     chmod +x /home/$USER/full-pingpong.sh
     chown $USER:$USER /home/$USER/full-pingpong.sh
 
     ln -s /mnt/resource/scratch/ /home/$USER/scratch
+
+    # Don't require password for HPC user sudo
+    echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 else
     echo already mounted
