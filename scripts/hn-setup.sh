@@ -55,7 +55,6 @@ python install.py << ANSWERS
 Y
 /home/$USER/.bashrc
 ANSWERS
-exec -l $SHELL
 
 echo export WCOLL=/mnt/resource/scratch/hosts >> /home/$USER/.bashrc
 #Use ganglia install script to install ganglia, this is downloaded via the ARM template
