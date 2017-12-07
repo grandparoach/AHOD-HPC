@@ -74,7 +74,7 @@ systemctl start nfs-lock
 systemctl start nfs-idmap
 systemctl restart nfs-server
 
-cp clusRun.sh cn-setup.sh /mnt/resource/scratch/
+cp *.sh /mnt/resource/scratch/scripts/
 chmod +x /home/$USER/bin/*.sh
 chown $USER:$USER /home/$USER/bin
 nmap -sn $localip.* | grep $localip. | awk '{print $5}' > /mnt/resource/scratch/hostips
@@ -102,7 +102,7 @@ for name in `cat /mnt/resource/scratch/hostips`; do
         cat /home/$USER/.ssh/id_rsa | sshpass -p "$PASS" ssh $USER@$name "cat >> .ssh/id_rsa"
         cat /home/$USER/.ssh/id_rsa.pub | sshpass -p "$PASS" ssh $USER@$name "cat >> .ssh/authorized_keys"
         sshpass -p "$PASS" ssh $USER@$name "chmod 700 .ssh; chmod 640 .ssh/authorized_keys; chmod 400 .ssh/config; chmod 400 .ssh/id_rsa"
-        cat /mnt/resource/scratch/cn-setup.sh | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/cn-setup.sh"
+        cat /mnt/resource/scratch/scripts/cn-setup.sh | sshpass -p "$PASS" ssh $USER@$name "cat >> /home/$USER/cn-setup.sh"
         sshpass -p $PASS ssh -t -t -o ConnectTimeout=2 $USER@$name 'echo "'$PASS'" | sudo -S sh /home/'$USER'/cn-setup.sh '$IP $USER $myhost &
 done
 
@@ -111,6 +111,7 @@ chown -R $USER:$USER /home/$USER/bin/
 chown -R $USER:$USER /mnt/resource/scratch/
 chown -R $USER:$USER /mnt/lts
 chmod -R 744 /mnt/resource/scratch/
+chmod -R +x /mnt/resource/scratch/scripts/
 
 # Don't require password for HPC user sudo
 echo "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers

@@ -158,6 +158,7 @@
 				"[concat(variables('scriptUrl'), 'scripts/hn-setup.sh')]",
 				"[concat(variables('scriptUrl'), 'scripts/install_ganglia.sh')]",
 				"[concat(variables('scriptUrl'), 'scripts/clusRun.sh')]",
+				"[concat(variables('scriptUrl'), 'scripts/full-pingpong.sh')]",
 				"[concat(variables('scriptUrl'), 'solvers/install-', parameters('solver'), '.sh')]"	
 			],
 			"commandToExecute": ""
