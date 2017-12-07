@@ -12,7 +12,7 @@ if grep -q $IPPRE /etc/fstab; then FLAG=MOUNTED; else FLAG=NOTMOUNTED; fi
 if [ $FLAG = NOTMOUNTED ] ; then 
     echo $FLAG
     echo installing NFS and mounting
-    yum install -y -q nfs-utils
+    yum install -y -q nfs-utils axel
     mkdir -p /mnt/nfsshare
     mkdir -p /mnt/resource/scratch
     chmod 777 /mnt/nfsshare
@@ -35,20 +35,21 @@ if [ $FLAG = NOTMOUNTED ] ; then
     ln -s /opt/intel/impi/${impi_version}/lib64/ /opt/intel/impi/${impi_version}/lib
     
 
-    #SET ENV VARS
-    cat << EOF >> /home/$USER/.bashrc
+
         if [ -d "/opt/intel/impi" ]; then
             source /opt/intel/impi/*/bin64/mpivars.sh
         fi
         export FLUENT_HOSTNAME=$HOST
         export PATH=/home/$USER/bin:/mnt/resource/scratch/scripts:\$PATH
         export INTELMPI_ROOT=/opt/intel/impi/${impi_version}
+        echo export I_MPI_ROOT=$INTELMPI_ROOT
         export I_MPI_FABRICS=shm:dapl
         export I_MPI_DAPL_PROVIDER=ofa-v2-ib0
         export I_MPI_DYNAMIC_CONNECTION=0
+        echo export HOSTS=/mnt/resource/scratch/hosts
         #export I_MPI_DAPL_TRANSLATION_CACHE=0 only un comment if you are having application stability issues
-        echo export WCOLL=/mnt/resource/scratch/hosts >> /home/$USER/.bashrc
         #export I_MPI_PIN_PROCESSOR=8 
+        echo export WCOLL=/mnt/resource/scratch/hosts >> /home/$USER/.bashrc
 EOF
     #chown -R $USER:$USER /mnt/resource/
 
