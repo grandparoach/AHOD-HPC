@@ -116,13 +116,13 @@
 		"resourceLocation": "[resourceGroup().location]",
 		"namingInfix": "[toLower(substring(concat(parameters('vmssName'), uniqueString(resourceGroup().id)), 0, 9))]",
 		"longNamingInfix": "[toLower(parameters('vmssName'))]",
-		"jumpBoxName": "[concat(variables('longNamingInfix'),'jb')]",
+		"jumpBoxName": "[concat(variables('namingInfix'),'jb')]",
 		"jumpBoxOSDiskName": "[concat(variables('jumpBoxName'), 'osdisk')]",
 		"jumpBoxVHDContainerName": "[concat(variables('jumpBoxName'), 'vhd')]",
 		"jumpBoxIPConfigName": "[concat(variables('jumpBoxName'), 'ipconfig')]",
 		"jumpBoxNicName": "[concat(variables('jumpBoxName'), 'nic')]",
 		"storageAccountType": "Standard_LRS",
-		"ltsName": "[concat(variables('longNamingInfix'),'lts')]",
+		"ltsName": "[concat(variables('namingInfix'),'lts')]",
 		"vhdContainerName": "[concat(variables('namingInfix'), 'vhd')]",
 		"osDiskName":"[concat(variables('namingInfix'), 'osdisk')]",
 		"addressPrefix": "10.0.0.0/16",
@@ -203,7 +203,7 @@
 		"properties": {
 			"publicIPAllocationMethod": "Dynamic",
 			"dnsSettings": {
-				"domainNameLabel": "[variables('longNamingInfix')]"
+				"domainNameLabel": "[variables('namingInfix')]"
 			}
 		}
 	}, {
@@ -246,7 +246,7 @@
 			"storageProfile": {
 				"imageReference": "[variables('JBimageReference')]",
 				"osDisk": {
-					"name": "['jumpboxvmdisk']", 
+					"name": "[variables('osDiskName')]", 
 					"managedDisk": {
 						"storageAccountType": "Standard_LRS"
 					},
