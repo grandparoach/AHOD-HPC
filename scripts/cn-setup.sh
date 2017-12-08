@@ -35,22 +35,21 @@ if [ $FLAG = NOTMOUNTED ] ; then
     ln -s /opt/intel/impi/${impi_version}/intel64/bin/ /opt/intel/impi/${impi_version}/bin
     ln -s /opt/intel/impi/${impi_version}/lib64/ /opt/intel/impi/${impi_version}/lib
     
-
-
+    cat << EOF >> /home/$USER/.bashrc
         if [ -d "/opt/intel/impi" ]; then
             source /opt/intel/impi/*/bin64/mpivars.sh
         fi
         export FLUENT_HOSTNAME=$HOST
         export PATH=/home/$USER/bin:/mnt/resource/scratch/scripts:\$PATH
         export INTELMPI_ROOT=/opt/intel/impi/${impi_version}
-        echo export I_MPI_ROOT=$INTELMPI_ROOT
+        export I_MPI_ROOT=$INTELMPI_ROOT
         export I_MPI_FABRICS=shm:dapl
         export I_MPI_DAPL_PROVIDER=ofa-v2-ib0
         export I_MPI_DYNAMIC_CONNECTION=0
-        echo export HOSTS=/mnt/resource/scratch/hosts
+        export HOSTS=/mnt/resource/scratch/hosts
         #export I_MPI_DAPL_TRANSLATION_CACHE=0 only un comment if you are having application stability issues
         #export I_MPI_PIN_PROCESSOR=8 
-        echo export WCOLL=/mnt/resource/scratch/hosts >> /home/$USER/.bashrc
+        export WCOLL=/mnt/resource/scratch/hosts >> /home/$USER/.bashrc
 EOF
     #chown -R $USER:$USER /mnt/resource/
 

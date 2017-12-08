@@ -23,9 +23,9 @@ cd $SHARE_DATA/INSTALLERS/starccm+_12.02.010/
 
 #SET ENV VARS
 cat << EOF >> /home/$USER/.bashrc
-    echo export PODKey=$LICIP >> $SHARE_HOME/.bashrc
-    echo export CDLMD_LICENSE_FILE=1999@flex.cd-adapco.com >> $SHARE_HOME/.bashrc
-    echo export PATH=$SHARE_DATA/applications/12.02.010/STAR-CCM+12.02.010/star/bin:$PATH >> $SHARE_HOME/.bashrc
+    export PODKey=$LICIP >> $SHARE_HOME/.bashrc
+    export CDLMD_LICENSE_FILE=1999@flex.cd-adapco.com >> $SHARE_HOME/.bashrc
+    export PATH=$SHARE_DATA/applications/12.02.010/STAR-CCM+12.02.010/star/bin:$PATH >> $SHARE_HOME/.bashrc
 EOF
 
 sh $SHARE_DATA/INSTALLERS/starccm+_12.02.010/STAR-CCM+12.02.010_01_linux-x86_64-2.5_gnu4.8.bin -i silent -DINSTALLDIR=$SHARE_DATA/applications -DNODOC=true -DINSTALLFLEX=false
