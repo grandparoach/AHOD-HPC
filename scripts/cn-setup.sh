@@ -34,16 +34,22 @@ if [ $FLAG = NOTMOUNTED ] ; then
     source /opt/intel/impi/${impi_version}/bin64/mpivars.sh
     ln -s /opt/intel/impi/${impi_version}/intel64/bin/ /opt/intel/impi/${impi_version}/bin
     ln -s /opt/intel/impi/${impi_version}/lib64/ /opt/intel/impi/${impi_version}/lib
-    
-    if [ -d "/opt/intel/impi" ]; then
-        source /opt/intel/impi/*/bin64/mpivars.sh
-    fi   
-    
+
+    cat << EOF >> /etc/security/limits.conf
+*               hard    memlock         unlimited
+*               soft    memlock         unlimited
+*               hard    nofile          65535
+*               soft    nofile          65535
+EOF
+
     cat << EOF >> /home/$USER/.bashrc
+if [ -d "/opt/intel/impi" ]; then
+    source /opt/intel/impi/*/bin64/mpivars.sh
+fi
 export FLUENT_HOSTNAME=$HOST
 export PATH=/home/$USER/bin:/mnt/resource/scratch/scripts:\$PATH
 export INTELMPI_ROOT=/opt/intel/impi/${impi_version}
-export I_MPI_ROOT=${INTELMPI_ROOT}
+export I_MPI_ROOT=/opt/intel/impi/${impi_version}
 export I_MPI_FABRICS=shm:dapl
 export I_MPI_DAPL_PROVIDER=ofa-v2-ib0
 export I_MPI_DYNAMIC_CONNECTION=0
