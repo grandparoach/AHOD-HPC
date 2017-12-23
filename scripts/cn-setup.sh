@@ -56,7 +56,7 @@ export I_MPI_DYNAMIC_CONNECTION=0
 export HOSTS=/mnt/resource/scratch/hosts
 #export I_MPI_DAPL_TRANSLATION_CACHE=0 only un comment if you are having application stability issues
 #export I_MPI_PIN_PROCESSOR=8 
-export WCOLL=/mnt/resource/scratch/hosts >> /home/$USER/.bashrc
+export WCOLL=/mnt/resource/scratch/hosts
 EOF
     #chown -R $USER:$USER /mnt/resource/
 
