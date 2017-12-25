@@ -15,7 +15,7 @@ sudo yum install -y fontconfig freetype freetype-devel fontconfig-devel libstdc+
 mkdir -p /mnt/resource/scratch/INSTALLERS/ANSYS
 
 axel -q -n 50 http://azbenchmarkstorage.blob.core.windows.net/ansysbenchmarkstorage/$DOWN --output=$SHARE_DATA/benchmark/$DOWN
-axel -q -n 50 https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/scripts/run_fluent.jou --output=$SHARE_DATA/benchmark/runme.jou
+wget  https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/scripts/run_fluent.jou -O $SHARE_DATA/benchmark/run_fluent.jou
 axel -q -n 50 http://azbenchmarkstorage.blob.core.windows.net/ansysbenchmarkstorage/ANSYS.tgz --output=$SHARE_DATA/ANSYS.tgz
 
 tar -xf $SHARE_DATA/ANSYS.tgz -C $SHARE_DATA/INSTALLERS
