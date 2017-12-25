@@ -9,7 +9,7 @@ echo $USER,$LICIP,$HOST,$DOWN
 export SHARE_DATA=/mnt/resource/scratch
 export SHARE_HOME=/home/$USER
 
-sudo yum install -y libXext libXt
+sudo yum install -y libXext libXt libXrender-devel.x86_64 libXrender.x86_64
 sudo yum install -y fontconfig freetype freetype-devel fontconfig-devel libstdc++
 
 mkdir -p /mnt/resource/scratch/INSTALLERS/ANSYS
