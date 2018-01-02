@@ -42,7 +42,4 @@ chown -R $1:$1 $SHARE_DATA
 source $SHARE_DATA/INSTALLERS/ANSYS/INSTALL -silent -install_dir "/mnt/resource/scratch/applications/ansys_inc/" -fluent
 #source /mnt/resource/scratch/INSTALLERS/ANSYS/INSTALL -silent -install_dir "/mnt/resource/scratch/applications/ansys_inc/" -cfx
 #fluent 3d -g -mpi=intel -pib.dapl -mpiopt="-genv I_MPI_DAPL_PROVIDER=ofa-v2-ib0" -ssh -t20 -cnf=/mnt/scratch/hostips -i runme.jou
-
-
-
-cho
+#fluent 3d -g -mpi=pcmpi -pethernet -mpiopt="-genv I_MPI_FABRICS=shm:tcp" -ssh -t32 -cnf=hostips -i run_fluent.jou
