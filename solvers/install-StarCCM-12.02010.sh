@@ -12,9 +12,9 @@ export SHARE_HOME=/home/$USER
 
 sudo yum install -y libXext libXt
 
-axel -q -n 50 http://azbenchmarkstorage.blob.core.windows.net/cdadapcobenchmarkstorage/runAndRecord.java --output=$SHARE_DATA/benchmark/runAndRecord.java
-axel -q -n 50 http://azbenchmarkstorage.blob.core.windows.net/cdadapcobenchmarkstorage/STAR-CCM+12.02.010_01_linux-x86_64.tar.gz --output=$SHARE_DATA/INSTALLERS/STAR-CCM+12.02.010_01_linux-x86_64.tar.gz
-axel -q -n 50 http://azbenchmarkstorage.blob.core.windows.net/cdadapcobenchmarkstorage/$DOWN --output=$SHARE_DATA/benchmark/$DOWN
+wget http://azbenchmarkstorage.blob.core.windows.net/cdadapcobenchmarkstorage/runAndRecord.java -O $SHARE_DATA/benchmark/runAndRecord.java
+axel -q -n 10 http://azbenchmarkstorage.blob.core.windows.net/cdadapcobenchmarkstorage/STAR-CCM+12.02.010_01_linux-x86_64.tar.gz --output=$SHARE_DATA/INSTALLERS/STAR-CCM+12.02.010_01_linux-x86_64.tar.gz
+axel -q -n 10 http://azbenchmarkstorage.blob.core.windows.net/cdadapcobenchmarkstorage/$DOWN --output=$SHARE_DATA/benchmark/$DOWN
 
 tar -xf $SHARE_DATA/benchmark/$DOWN -C $SHARE_DATA/benchmark
 tar -xzf $SHARE_DATA/INSTALLERS/STAR-CCM+12.02.010_01_linux-x86_64.tar.gz -C $SHARE_DATA/INSTALLERS/

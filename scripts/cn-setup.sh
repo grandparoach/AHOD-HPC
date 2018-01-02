@@ -12,8 +12,7 @@ if grep -q $IPPRE /etc/fstab; then FLAG=MOUNTED; else FLAG=NOTMOUNTED; fi
 if [ $FLAG = NOTMOUNTED ] ; then 
     echo $FLAG
     echo installing NFS and mounting
-    yum install -y -q epel-release
-    yum install -y -q nfs-utils axel pdsh
+    yum install -y -q epel-release nfs-utils axel pdsh
     mkdir -p /mnt/nfsshare
     mkdir -p /mnt/resource/scratch
     chmod 777 /mnt/nfsshare

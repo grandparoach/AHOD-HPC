@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+#set -x
 
 USER=$1
 LICIP=$2
@@ -11,14 +11,13 @@ echo $USER,$LICIP,$HOST,$DOWN
 export SHARE_DATA=/mnt/resource/scratch
 export SHARE_HOME=/home/$USER
 
-sudo yum install -y libXext libXt libXrender-devel.x86_64 libXrender.x86_64
-sudo yum install -y fontconfig freetype freetype-devel fontconfig-devel libstdc++
+sudo yum install fontconfig freetype freetype-devel fontconfig-devel libstdc++ libXext libXt libXrender-devel.x86_64 libXrender.x86_64
 
 mkdir -p /mnt/resource/scratch/INSTALLERS/ANSYS
 
-axel -q -n 50 http://azbenchmarkstorage.blob.core.windows.net/ansysbenchmarkstorage/$DOWN --output=$SHARE_DATA/benchmark/$DOWN
+axel -q -n 10 http://azbenchmarkstorage.blob.core.windows.net/ansysbenchmarkstorage/$DOWN --output=$SHARE_DATA/benchmark/$DOWN
 wget  https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/scripts/run_fluent.jou -O $SHARE_DATA/benchmark/run_fluent.jou
-axel -q -n 50 http://azbenchmarkstorage.blob.core.windows.net/ansysbenchmarkstorage/ANSYS_182.tgz --output=$SHARE_DATA/ANSYS.tgz
+axel -q -n 10 http://azbenchmarkstorage.blob.core.windows.net/ansysbenchmarkstorage/ANSYS_182.tgz --output=$SHARE_DATA/ANSYS.tgz
 
 tar -xf $SHARE_DATA/ANSYS.tgz -C $SHARE_DATA/INSTALLERS
 tar -xf $SHARE_DATA/benchmark/$DOWN -C $SHARE_DATA/benchmark
@@ -38,6 +37,7 @@ export I_MPI_DYNAMIC_CONNECTION=0
 EOF
 
 chown -R $1:$1 $SHARE_DATA
+sudo yum install -y fontconfig freetype freetype-devel fontconfig-devel libstdc++ libXext libXt libXrender-devel.x86_64 libXrender.x86_64
 
 source $SHARE_DATA/INSTALLERS/ANSYS/INSTALL -silent -install_dir "/mnt/resource/scratch/applications/ansys_inc/" -fluent
 #source /mnt/resource/scratch/INSTALLERS/ANSYS/INSTALL -silent -install_dir "/mnt/resource/scratch/applications/ansys_inc/" -cfx
