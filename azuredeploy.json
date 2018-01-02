@@ -7,7 +7,8 @@
 			"allowedValues": [
 				"ABAQUS",
 				"ANSYS_CFX",
-				"ANSYS_Fluent",
+				"ANSYS_Fluent_17.2",
+				"ANSYS_Fluent_18.2",
 				"ANSYS_Mechanical",
 				"DataSynapse",
 				"Exa_PowerFlow",
