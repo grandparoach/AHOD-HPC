@@ -22,8 +22,8 @@ axel -q -n 10 http://azbenchmarkstorage.blob.core.windows.net/ansysbenchmarkstor
 tar -xf $SHARE_DATA/ANSYS.tgz -C $SHARE_DATA/INSTALLERS
 tar -xf $SHARE_DATA/benchmark/$DOWN -C $SHARE_DATA/benchmark
 
-mv $SHARE_DATA/benchmark/*.dat.gz $SHARE_DATA/benchmark/benchmark.dat.gz
-mv $SHARE_DATA/benchmark/*.cas.gz $SHARE_DATA/benchmark/benchmark.cas.gz
+mv $SHARE_DATA/benchmark/bench/fluent/v6/aircraft_wing_14m/cas_dat/*.dat.gz $SHARE_DATA/benchmark/benchmark.dat.gz
+mv $SHARE_DATA/benchmark/bench/fluent/v6/aircraft_wing_14m/cas_dat/*.cas.gz $SHARE_DATA/benchmark/benchmark.cas.gz
 
 cd $SHARE_DATA/INSTALLERS/ANSYS/
 mkdir -p $SHARE_DATA/applications/ansys_inc/shared_files/licensing/
@@ -33,7 +33,6 @@ echo ANSYSLI_SERVERS=2325@$LICIP >> $SHARE_DATA/applications/ansys_inc/shared_fi
 
 cat << EOF >> /home/azureuser/.bashrc
 export PATH=/mnt/resource/scratch/applications/ansys_inc/v172/fluent/bin:/opt/intel/impi/5.1.3.181/bin64:$PATH
-export I_MPI_DYNAMIC_CONNECTION=0
 EOF
 
 chown -R $1:$1 $SHARE_DATA
@@ -41,8 +40,4 @@ sudo yum install -y fontconfig freetype freetype-devel fontconfig-devel libstdc+
 
 source $SHARE_DATA/INSTALLERS/ANSYS/INSTALL -silent -install_dir "/mnt/resource/scratch/applications/ansys_inc/" -fluent
 #source /mnt/resource/scratch/INSTALLERS/ANSYS/INSTALL -silent -install_dir "/mnt/resource/scratch/applications/ansys_inc/" -cfx
-#fluent 3d -g -mpi=intel -pib.dapl -mpiopt="-genv I_MPI_DAPL_PROVIDER=ofa-v2-ib0" -ssh -t20 -cnf=/mnt/scratch/hostips -i runme.jou
-
-
-
-cho
+#fluent 3d -g -mpi=intel -pib.dapl -mpiopt="-genv I_MPI_DAPL_PROVIDER=ofa-v2-ib0" -ssh -t20 -cnf=/mnt/resource/scratch/hostips -i run_fluent.jou

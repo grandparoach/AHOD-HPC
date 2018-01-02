@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+#set -x
 
 SOLVER=$1
 USER=$2
