@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+#set -x
 
 USER=$1
 LICIP=$2
@@ -22,8 +22,8 @@ axel -q -n 10 http://azbenchmarkstorage.blob.core.windows.net/ansysbenchmarkstor
 tar -xf $SHARE_DATA/ANSYS.tgz -C $SHARE_DATA/INSTALLERS
 tar -xf $SHARE_DATA/benchmark/$DOWN -C $SHARE_DATA/benchmark
 
-mv $SHARE_DATA/benchmark/bench/fluent/v6/aircraft_wing_14m/cas_dat/*.dat.gz $SHARE_DATA/benchmark/benchmark.dat.gz
-mv $SHARE_DATA/benchmark/bench/fluent/v6/aircraft_wing_14m/cas_dat/*.cas.gz $SHARE_DATA/benchmark/benchmark.cas.gz
+mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.dat.gz $SHARE_DATA/benchmark/benchmark.dat.gz
+mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.cas.gz $SHARE_DATA/benchmark/benchmark.cas.gz
 
 cd $SHARE_DATA/INSTALLERS/ANSYS/
 mkdir -p $SHARE_DATA/applications/ansys_inc/shared_files/licensing/
