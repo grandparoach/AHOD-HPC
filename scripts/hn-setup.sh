@@ -96,7 +96,7 @@ for NAME in `cat /mnt/resource/scratch/hostips`; do sshpass -p $PASS ssh -o Conn
 NAMES=`cat /mnt/resource/scratch/hostips` #names from names.txt file
 
 for name in `cat /mnt/resource/scratch/hostips`; do
-        sshpass -p "$PASS" ssh $USER@$name "mkdir -p .ssh"
+        sshpass -p "$PASS" ssh -o ConnectTimeout=2 $USER@$name "mkdir -p .ssh"
         cat /home/$USER/.ssh/config | sshpass -p "$PASS" ssh $USER@$name "cat >> .ssh/config"
         cat /home/$USER/.ssh/id_rsa | sshpass -p "$PASS" ssh $USER@$name "cat >> .ssh/id_rsa"
         cat /home/$USER/.ssh/id_rsa.pub | sshpass -p "$PASS" ssh $USER@$name "cat >> .ssh/authorized_keys"

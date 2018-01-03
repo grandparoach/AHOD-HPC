@@ -36,7 +36,7 @@ export PATH=/mnt/resource/scratch/applications/ansys_inc/v182/fluent/bin:/opt/in
 EOF
 
 chown -R $1:$1 $SHARE_DATA
-sudo yum install -y fontconfig freetype freetype-devel fontconfig-devel libstdc++ libXext libXt libXrender-devel.x86_64 libXrender.x86_64
+sudo yum install -y fontconfig freetype freetype-devel fontconfig-devel libstdc++ libXext libXt libXrender-devel.x86_64 libXrender.x86_64 mesa-libGL.x86_64
 
 source $SHARE_DATA/INSTALLERS/ANSYS/INSTALL -silent -install_dir "/mnt/resource/scratch/applications/ansys_inc/" -fluent
 #source /mnt/resource/scratch/INSTALLERS/ANSYS/INSTALL -silent -install_dir "/mnt/resource/scratch/applications/ansys_inc/" -cfx
