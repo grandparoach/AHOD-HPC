@@ -44,6 +44,8 @@
 				"Standard_A9",
 				"Standard_H16r",
 				"Standard_H16mr",
+				"Standard_F16s",
+				"Standard_E32-16s_v3",
 				"Standard_NC24r"
 			],
 			"type": "String",
