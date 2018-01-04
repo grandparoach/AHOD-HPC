@@ -31,7 +31,7 @@ mkdir -p $SHARE_DATA/applications/ansys_inc/shared_files/licensing/
 echo SERVER=1055@$LICIP > $SHARE_DATA/applications/ansys_inc/shared_files/licensing/ansyslmd.ini
 echo ANSYSLI_SERVERS=2325@$LICIP >> $SHARE_DATA/applications/ansys_inc/shared_files/licensing/ansyslmd.ini
 
-cat << EOF >> /home/azureuser/.bashrc
+cat << EOF >> /home/$USER/.bashrc
 export PATH=/mnt/resource/scratch/applications/ansys_inc/v182/fluent/bin:/opt/intel/impi/5.1.3.181/bin64:$PATH
 EOF
 
