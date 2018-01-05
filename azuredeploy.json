@@ -45,8 +45,27 @@
 				"Standard_H16r",
 				"Standard_H16mr",
 				"Standard_F16s",
+				"Standard_F32s_v2",
+				"Standard_F72s_v2",
 				"Standard_E32-16s_v3",
 				"Standard_NC24r"
+			],
+			"type": "String",
+			"metadata": {
+				"description": "Which instance would you like to deploy to? Not all VMs are available in all regions"
+			}
+		},
+		"computeOS":{
+			"defaultValue": "CentOS_7.1-HPC",
+			"allowedValues": [
+				"CentOS_6.8-HPC",
+				"CentOS_7.1-HPC",
+				"CentOS_6.6",
+				"CentOS_6.8",
+				"CentOS_7.1",
+				"CentOS_7.3",
+				"CentOS_7.4",
+				"Oracle_7.4"
 			],
 			"type": "String",
 			"metadata": {
@@ -137,10 +156,55 @@
 		"cnSetupScript": "cn-setup.sh",
 		"hnSetupScript": "hn-setup.sh",
 		"osType": {
-			"publisher": "OpenLogic",
-			"offer": "CentOS-HPC",
-			"sku": "7.1",
-			"version": "7.1.20160408"
+			"CentOS_6.8-HPC": {
+				"publisher": "OpenLogic",
+				"offer": "CentOS-HPC",
+				"sku": "6.8",
+				"version": "6.8.20170606"
+			},
+			"CentOS_7.1-HPC": {
+				"publisher": "OpenLogic",
+				"offer": "CentOS-HPC",
+				"sku": "7.1",
+				"version": "7.1.20160408"
+			},			
+			"CentOS_6.6": {
+				"publisher": "OpenLogic",
+				"offer": "CentOS",
+				"sku": "6.6",
+				"version": "6.6.20160309"
+			  },
+			  "CentOS_6.8": {
+				"publisher": "OpenLogic",
+				"offer": "CentOS",
+				"sku": "6.8",
+				"version": "6.8.20170517"
+			  },
+			  "CentOS_7.1": {
+				"publisher": "OpenLogic",
+				"offer": "CentOS",
+				"sku": "7.1",
+				"version": "7.1.20160308"
+			  },
+			  "CentOS_7.3": {
+				"publisher": "OpenLogic",
+				"offer": "CentOS",
+				"sku": "7.3",
+				"version": "7.3.20170925"
+			  },
+			  "CentOS_7.4": {
+				"publisher": "OpenLogic",
+				"offer": "CentOS",
+				"sku": "7.4",
+				"version": "latest"
+			  },
+			  "Oracle_7.4": {
+				"publisher": "Oracle",
+				"offer": "Oracle-Linux",
+				"sku": "7.4",
+				"version": "7.4.20170908"
+			  }
+
 		},
 		"imageReference": "[variables('osType')]",
 		"JBoxType": {
@@ -148,8 +212,7 @@
 			"offer": "CentOS",
 			"sku": "7.1",
 			"version": "latest"
-		},
-		"JBimageReference": "[variables('JBoxType')]",
+		},   
 		"vmScripts": {
 			"scriptsToDownload": [
 				"[concat(variables('scriptUrl'), 'scripts/cn-setup.sh')]",
@@ -242,7 +305,7 @@
 				"adminPassword": "[parameters('adminPassword')]"
 			},
 			"storageProfile": {
-				"imageReference": "[variables('JBimageReference')]",
+				"imageReference": "[variables('osType')['CentOS_7.3']]",
 				"osDisk": {
 					"name": "[variables('osDiskName')]", 
 					"managedDisk": {
@@ -303,7 +366,7 @@
 			
 			"virtualMachineProfile": {
 				"storageProfile": {
-					"imageReference": "[variables('imageReference')]",
+					"imageReference":  "[variables('osType')[parameters('computeOS')]]",
 					"osDisk": {
 						"managedDisk": {
 							"storageAccountType": "Standard_LRS"

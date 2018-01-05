@@ -10,6 +10,7 @@ echo $USER,$LICIP,$HOST,$DOWN
 VERSION=echo $DATA | awk -F'-' '{print $2}'
 
 export SHARE_DATA=/mnt/resource/scratch
+mkdir -p $SHARE_DATA
 export SHARE_HOME=/home/$USER
 
 sudo yum install -y libXext libXt
