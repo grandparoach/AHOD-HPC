@@ -355,7 +355,7 @@
 			"capacity": "[parameters('instanceCount')]"
 		},
 		"name": "[variables('vmssNameFix')]",
-		"apiVersion": "[variables('networkApiVersion')]",
+		"apiVersion": "[variables('computeApiVersion')]",
 		"location": "[variables('resourceLocation')]",
 		"properties": {
 			"overprovision": "true",
