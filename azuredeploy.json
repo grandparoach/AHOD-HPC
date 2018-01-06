@@ -280,6 +280,7 @@
 		"apiVersion": "[variables('networkApiVersion')]",
 		"location": "[variables('resourceLocation')]",
 		"properties": {
+			"enableAcceleratedNetworking": "[parameters('acceleratedNetworking')]",
 			"ipConfigurations": [{
 				"name": "[variables('jumpBoxIPConfigName')]",
 				"properties": {
