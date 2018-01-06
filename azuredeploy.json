@@ -72,6 +72,13 @@
 				"description": "Which instance would you like to deploy to? Not all VMs are available in all regions"
 			}
 		},
+		"acceleratedNetworking": {
+			"type": "bool",
+			"defaultValue": false,
+			"metadata": {
+				"description": "Accelerated networking activated for the compute cluster, see documentation for suppored VM and OS"
+			}
+		},
 		"vmssName": {
 			"maxLength": 10,
 			"type": "String",
@@ -384,7 +391,7 @@
 						"name": "[variables('nicName')]",
 						"properties": {
 							"primary": "true",
-							"enableAcceleratedNetworking": true,
+							"enableAcceleratedNetworking": "[parameters('acceleratedNetworking')]",
 							"ipConfigurations": [{
 								"name": "[variables('ipConfigName')]",
 								"properties": {
