@@ -48,13 +48,13 @@ yum install -y gcc libffi-devel python-devel openssl-devel --disableexcludes=all
 yum groupinstall -y "X Window System"
 
 #install az cli
-wget https://azurecliprod.blob.core.windows.net/install.py
-python install.py << ANSWERS
-/home/$USER/lib/azure-cli
-/home/$USER/bin
-Y
-/home/$USER/.bashrc
-ANSWERS
+#wget https://azurecliprod.blob.core.windows.net/install.py
+#python install.py << ANSWERS
+#/home/$USER/lib/azure-cli
+#/home/$USER/bin
+#Y
+#/home/$USER/.bashrc
+#ANSWERS
 
 echo export WCOLL=/mnt/resource/scratch/hosts >> /home/$USER/.bashrc
 #Use ganglia install script to install ganglia, this is downloaded via the ARM template
