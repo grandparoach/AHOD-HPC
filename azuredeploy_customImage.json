@@ -237,22 +237,6 @@
 	},
 	"resources": [
 		{
-			"type": "Microsoft.Compute/images",
-			"apiVersion": "2016-04-30-preview",
-			"name": "[variables('imageName')]",
-			"location": "[resourceGroup().location]",
-			"properties": {
-				"storageProfile": {
-				"osDisk": {
-					"osType": "Linux",
-					"osState": "Generalized",
-					"blobUri": "[parameters('osDiskVhdUri')]",
-					"storageAccountType": "Standard_LRS"
-					}
-				}
-			}
-		},
-		{
 			"type": "Microsoft.Storage/storageAccounts",
 			"name": "[variables('ltsName')]",
 			"apiVersion": "[variables('storageApiVersion')]",

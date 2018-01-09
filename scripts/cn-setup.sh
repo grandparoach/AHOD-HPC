@@ -60,7 +60,7 @@ export WCOLL=/mnt/resource/scratch/hosts
 EOF
     #chown -R $USER:$USER /mnt/resource/
 
-    sh /mnt/resource/scratch/scripts/install_ganglia.sh $GANG_HOST azure 8649
+    #sh /mnt/resource/scratch/scripts/install_ganglia.sh $GANG_HOST azure 8649
     ln -s /mnt/resource/scratch/ /home/$USER/scratch
 
     # Don't require password for HPC user sudo

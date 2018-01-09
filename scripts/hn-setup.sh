@@ -58,8 +58,8 @@ ANSWERS
 
 echo export WCOLL=/mnt/resource/scratch/hosts >> /home/$USER/.bashrc
 #Use ganglia install script to install ganglia, this is downloaded via the ARM template
-chmod +x install_ganglia.sh
-./install_ganglia.sh $myhost azure 8649
+#chmod +x install_ganglia.sh
+#./install_ganglia.sh $myhost azure 8649
 
 #Setup the NFS server
 echo "/mnt/resource/scratch $localip.*(rw,sync,no_root_squash,no_all_squash)" | tee -a /etc/exports
