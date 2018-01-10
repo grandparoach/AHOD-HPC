@@ -38,6 +38,8 @@ EOF
 
 chown -R $1:$1 $SHARE_DATA
 
+cp /home/hpcuser/bin/hostlist $SHARE_DATA/benchmark
+
 source $SHARE_DATA/INSTALLERS/ANSYS/INSTALL -silent -install_dir "/mnt/resource/scratch/applications/ansys_inc/" -fluent
 #source /mnt/resource/scratch/INSTALLERS/ANSYS/INSTALL -silent -install_dir "/mnt/resource/scratch/applications/ansys_inc/" -cfx
 #fluent 3d -g -mpi=intel -pib.dapl -mpiopt="-genv I_MPI_DAPL_PROVIDER=ofa-v2-ib0" -ssh -t20 -cnf=/mnt/resource/scratch/hostips -i run_fluent.jou
