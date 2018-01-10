@@ -11,9 +11,10 @@ echo $USER,$LICIP,$HOST,$DOWN
 export SHARE_DATA=/mnt/resource/scratch
 export SHARE_HOME=/home/$USER
 
-sudo yum install -y fontconfig freetype freetype-devel fontconfig-devel libstdc++ libXext libXt libXrender-devel.x86_64 libXrender.x86_64 mesa-libGL.x86_64
+for i in seq `1 10`; do sudo yum install -y fontconfig freetype freetype-devel fontconfig-devel libstdc++ libXext libXt libXrender-devel.x86_64 libXrender.x86_64 mesa-libGL.x86_64; sleep 5; done
 
 mkdir -p /mnt/resource/scratch/INSTALLERS/ANSYS
+mkdir -p /mnt/resource/scratch/benchmark
 
 axel -q -n 10 http://azbenchmarkstorage.blob.core.windows.net/ansysbenchmarkstorage/$DOWN --output=$SHARE_DATA/benchmark/$DOWN
 wget  https://raw.githubusercontent.com/tanewill/AHOD-HPC/master/scripts/run_fluent.jou -O $SHARE_DATA/benchmark/run_fluent.jou
@@ -36,7 +37,6 @@ export PATH=/mnt/resource/scratch/applications/ansys_inc/v182/fluent/bin:/opt/in
 EOF
 
 chown -R $1:$1 $SHARE_DATA
-sudo yum install -y fontconfig freetype freetype-devel fontconfig-devel libstdc++ libXext libXt libXrender-devel.x86_64 libXrender.x86_64 mesa-libGL.x86_64
 
 source $SHARE_DATA/INSTALLERS/ANSYS/INSTALL -silent -install_dir "/mnt/resource/scratch/applications/ansys_inc/" -fluent
 #source /mnt/resource/scratch/INSTALLERS/ANSYS/INSTALL -silent -install_dir "/mnt/resource/scratch/applications/ansys_inc/" -cfx
