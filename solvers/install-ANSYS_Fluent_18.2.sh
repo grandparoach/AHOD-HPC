@@ -11,7 +11,7 @@ echo $USER,$LICIP,$HOST,$DOWN
 export SHARE_DATA=/mnt/resource/scratch
 export SHARE_HOME=/home/$USER
 
-for i in seq `1 10`; do sudo yum install -y axel fontconfig freetype freetype-devel fontconfig-devel libstdc++ libXext libXt libXrender-devel.x86_64 libXrender.x86_64 mesa-libGL.x86_64; sleep 5; done
+for i in `seq 1 10`; do sudo yum install -y axel fontconfig freetype freetype-devel fontconfig-devel libstdc++ libXext libXt libXrender-devel.x86_64 libXrender.x86_64 mesa-libGL.x86_64; sleep 5; done
 
 mkdir -p /mnt/resource/scratch/INSTALLERS/ANSYS
 mkdir -p /mnt/resource/scratch/benchmark
@@ -38,7 +38,7 @@ EOF
 
 chown -R $1:$1 $SHARE_DATA
 
-cp /home/hpcuser/bin/hostlist $SHARE_DATA/benchmark
+cp /home/hpcuser/machinefile $SHARE_DATA/benchmark/machinefile
 
 source $SHARE_DATA/INSTALLERS/ANSYS/INSTALL -silent -install_dir "/mnt/resource/scratch/applications/ansys_inc/" -fluent
 #source /mnt/resource/scratch/INSTALLERS/ANSYS/INSTALL -silent -install_dir "/mnt/resource/scratch/applications/ansys_inc/" -cfx
