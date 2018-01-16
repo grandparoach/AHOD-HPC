@@ -23,14 +23,10 @@ axel -q -n 10 http://azbenchmarkstorage.blob.core.windows.net/ansysbenchmarkstor
 tar -xf $SHARE_DATA/ANSYS.tgz -C $SHARE_DATA/INSTALLERS
 tar -xf $SHARE_DATA/benchmark/$DOWN -C $SHARE_DATA/benchmark
 
-mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.dat.gz $SHARE_DATA/benchmark/benchmark.dat.gz
-mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.cas.gz $SHARE_DATA/benchmark/benchmark.cas.gz
+mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.dat.gz $SHARE_DATA/benchmark/
+mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.cas.gz $SHARE_DATA/benchmark/
 
 cd $SHARE_DATA/INSTALLERS/ANSYS/
-mkdir -p $SHARE_DATA/applications/ansys_inc/shared_files/licensing/
-
-echo SERVER=1055@$LICIP > $SHARE_DATA/applications/ansys_inc/shared_files/licensing/ansyslmd.ini
-echo ANSYSLI_SERVERS=2325@$LICIP >> $SHARE_DATA/applications/ansys_inc/shared_files/licensing/ansyslmd.ini
 
 cat << EOF >> /home/$USER/.bashrc
 export PATH=/mnt/resource/scratch/applications/ansys_inc/v182/fluent/bin:/opt/intel/impi/5.1.3.181/bin64:$PATH
