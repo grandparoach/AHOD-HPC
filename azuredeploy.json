@@ -123,9 +123,12 @@
 				"ABAQUS_newStdPerf-4.tgz",
 				"ABAQUS_newXplPerf.tgz",
 				"ABAQUS_oldStdPerf.tgz",
-				"ANSYS_Fluent_aircraft_wing_14m.tar",
-				"ANSYS_Fluent_f1_racecar_140m.tar",
 				"ANSYS_Fluent_sedan_4m.tar",
+				"ANSYS_Fluent_aircraft_wing_14m.tar",
+				"ANSYS_Fluent_landing_gear_15m.tar",
+				"ANSYS_Fluent_lm6000_16m.tar",
+				"ANSYS_Fluent_combustor_71m.tar",
+				"ANSYS_Fluent_f1_racecar_140m.tar",
 				"CCM_Civil.tgz",
 				"CCM_LeMans_17M.tgz",
 				"CCM_LeMans_100M.tgz",
@@ -313,7 +316,7 @@
 				"adminPassword": "[parameters('adminPassword')]"
 			},
 			"storageProfile": {
-				"imageReference": "[variables('osType')['CentOS_7.3']]",
+				"imageReference": "[variables('osType')['CentOS_7.1']]",
 				"osDisk": {
 					"name": "[variables('osDiskName')]", 
 					"managedDisk": {
