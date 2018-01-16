@@ -23,8 +23,8 @@ axel -q -n 10 http://azbenchmarkstorage.blob.core.windows.net/ansysbenchmarkstor
 tar -xf $SHARE_DATA/ANSYS.tgz -C $SHARE_DATA/INSTALLERS
 tar -xf $SHARE_DATA/benchmark/$DOWN -C $SHARE_DATA/benchmark
 
-mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.dat.gz $SHARE_DATA/benchmark/
-mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.cas.gz $SHARE_DATA/benchmark/
+mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.dat.gz $SHARE_DATA/benchmark/benchmark.dat.gz
+mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.cas.gz $SHARE_DATA/benchmark/benchmark.cas.gz
 
 cd $SHARE_DATA/INSTALLERS/ANSYS/
 
