@@ -5,6 +5,7 @@ USER=$1
 LICIP=$2
 HOST=`hostname`
 DOWN=$3
+FILENAME=$(echo $DOWN | awk -F[_.] '{ print $3"_"$4 }')
 echo $USER,$LICIP,$HOST,$DOWN
 
 
@@ -25,6 +26,10 @@ tar -xf $SHARE_DATA/benchmark/$DOWN -C $SHARE_DATA/benchmark
 
 mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.dat.gz $SHARE_DATA/benchmark/benchmark.dat.gz
 mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.cas.gz $SHARE_DATA/benchmark/benchmark.cas.gz
+
+mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.dat.gz $SHARE_DATA/benchmark/
+
+sed -i "s/_BENCHMARK/${FILENAME}/" run_fluent.jou
 
 cd $SHARE_DATA/INSTALLERS/ANSYS/
 mkdir -p $SHARE_DATA/applications/ansys_inc/shared_files/licensing/

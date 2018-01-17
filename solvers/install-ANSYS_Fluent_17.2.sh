@@ -11,7 +11,7 @@ echo $USER,$LICIP,$HOST,$DOWN
 export SHARE_DATA=/mnt/resource/scratch
 export SHARE_HOME=/home/$USER
 
-sudo yum install -y fontconfig freetype freetype-devel fontconfig-devel libstdc++ libXext libXt libXrender-devel.x86_64 libXrender.x86_64
+for i in `seq 1 10`; do sudo yum install -y axel fontconfig freetype freetype-devel fontconfig-devel libstdc++ libXext libXt libXrender-devel.x86_64 libXrender.x86_64 mesa-libGL.x86_64; sleep 5; done
 
 mkdir -p /mnt/resource/scratch/INSTALLERS/ANSYS
 
