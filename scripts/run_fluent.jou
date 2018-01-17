@@ -1,4 +1,4 @@
-f r-c-d benchmark.cas.gz
+f r-c-d _BENCHMARK.cas.gz
 par lat
 par band
 s iterate 20
