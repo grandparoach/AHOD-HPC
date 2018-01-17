@@ -24,12 +24,12 @@ axel -q -n 10 http://azbenchmarkstorage.blob.core.windows.net/ansysbenchmarkstor
 tar -xf $SHARE_DATA/ANSYS.tgz -C $SHARE_DATA/INSTALLERS
 tar -xf $SHARE_DATA/benchmark/$DOWN -C $SHARE_DATA/benchmark
 
-mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.dat.gz $SHARE_DATA/benchmark/benchmark.dat.gz
-mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.cas.gz $SHARE_DATA/benchmark/benchmark.cas.gz
+#mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.dat.gz $SHARE_DATA/benchmark/benchmark.dat.gz
+#mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.cas.gz $SHARE_DATA/benchmark/benchmark.cas.gz
 
-mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/*.dat.gz $SHARE_DATA/benchmark/
+mv $SHARE_DATA/benchmark/bench/fluent/v6/*/cas_dat/* $SHARE_DATA/benchmark/
 
-sed -i "s/_BENCHMARK/${FILENAME}/" run_fluent.jou
+sed -i "s/_BENCHMARK/${FILENAME}/" $SHARE_DATA/benchmark/run_fluent.jou
 
 cd $SHARE_DATA/INSTALLERS/ANSYS/
 mkdir -p $SHARE_DATA/applications/ansys_inc/shared_files/licensing/
