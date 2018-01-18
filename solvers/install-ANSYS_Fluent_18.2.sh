@@ -5,7 +5,7 @@ USER=$1
 LICIP=$2
 HOST=`hostname`
 DOWN=$3
-FILENAME=$(echo $DOWN | awk -F[_.] '{ print $3"_"$4 }')
+FILENAME=$(echo $DOWN | cut -d'_' -f 3- | awk -F'.' '{ print $1 }')
 echo $USER,$LICIP,$HOST,$DOWN
 
 
